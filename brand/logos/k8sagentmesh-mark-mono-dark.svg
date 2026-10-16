@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="K8sAgentMesh mark, monochrome dark (for light surfaces)">
+  <title>K8sAgentMesh mark, monochrome dark (for light surfaces)</title>
+  <g id="mesh-mark">
+    <circle cx="128" cy="148" r="94.85" fill="none" stroke="#0A1628" stroke-opacity="0.35" stroke-width="2.5" stroke-dasharray="0.1 8.5" stroke-linecap="round"/>
+    <path d="M 64 78 L 128 148 L 192 78" fill="none" stroke="#0A1628" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="165.1" cy="107.4" r="6" fill="#0A1628" fill-opacity="1.0"/>
+    <circle cx="107.5" cy="125.6" r="4.5" fill="#0A1628" fill-opacity="0.6"/>
+    <circle cx="128" cy="148" r="40" fill="none" stroke="#0A1628" stroke-width="6.5"/>
+    <circle cx="128" cy="148" r="28" fill="#0A1628"/>
+    <circle cx="64" cy="78" r="14" fill="#0A1628"/>
+    <circle cx="192" cy="78" r="14" fill="#0A1628"/>
+  </g>
+</svg>

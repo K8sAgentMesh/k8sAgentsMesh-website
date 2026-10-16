@@ -2,8 +2,8 @@
  *
  * Maps the canonical tokens in `brand/tokens/tokens.css` onto Starlight's
  * CSS variables. Dark is the primary theme (:root); light is the override.
- * Brand palette/typography values are placeholders until the brand identity
- * kit (ISI-6046) lands — change them in brand/tokens, not here.
+ * Brand palette/typography come from the brand identity kit (ISI-6046,
+ * direction B — Agent Constellation) — change them in brand/tokens, not here.
  */
 
 @import '../../brand/tokens/tokens.css';
@@ -13,9 +13,10 @@
   --sl-font: var(--mesh-font-body);
   --sl-font-mono: var(--mesh-font-mono);
 
-  /* Placeholder brand accent mapped onto Starlight's accent ramp. */
+  /* Brand accent from the identity kit (ISI-6046): text-safe route blue.
+   * Raw k8s-blue #326CE5 (3.8:1 on navy) stays in tokens for graphics. */
   --sl-color-accent-low: #16233f;
-  --sl-color-accent: var(--mesh-brand-primary);
+  --sl-color-accent: var(--mesh-brand-primary-strong);
   --sl-color-accent-high: #bcd7fa;
 
   /* Dark-mode-first neutrals. */
@@ -39,7 +40,7 @@
 /* ---- Light theme (override; dark is primary) ---- */
 :root[data-theme='light'] {
   --sl-color-accent-low: #d8e6fa;
-  --sl-color-accent: #2f74d0;
+  --sl-color-accent: #2b6bc4;
   --sl-color-accent-high: #16345f;
 
   --sl-color-white: #10131c;

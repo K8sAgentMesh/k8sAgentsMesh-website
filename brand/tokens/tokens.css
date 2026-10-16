@@ -1,15 +1,17 @@
 /*
  * K8sAgentMesh design tokens — canonical location `brand/tokens`.
  *
- * STATUS: PLACEHOLDER. The base scales below (spacing, radii, dark-mode-first
- * neutrals) are stable. The brand palette and typography ramps are placeholders
- * to be replaced by the brand identity kit (ISI-6046). Nothing in this file is
- * locked; integrate the final tokens here, in this file only.
+ * Source of truth: brand identity kit, ISI-6046, direction B — Agent
+ * Constellation (board-accepted on ISI-6042, decision card cc83324a).
+ * Full usage rules: `brand/brand-guide.md`.
  *
  * Conventions:
  *   - dark mode is the primary theme; light overrides live in theme.css
+ *     and in the `[data-theme='light']` block below (brand text colors only)
  *   - spacing scale: 4px base (`--mesh-space-*`)
  *   - radii: subtle, infra-feeling (`--mesh-radius-*`)
+ *   - brand colors: `#326CE5` k8s-blue is for routes/graphics and large
+ *     text (3.8:1 on navy); use the `*-strong` variants for body-size text
  */
 
 :root {
@@ -36,23 +38,66 @@
   --mesh-neutral-2: #1a2032; /* borders, hairlines */
   --mesh-neutral-3: #2a3247; /* strong border, subtle fill */
   --mesh-neutral-4: #4a556e; /* muted text, disabled */
-  --mesh-neutral-5: #8b96ad; /* secondary text */
-  --mesh-neutral-6: #c4ccde; /* body text */
-  --mesh-neutral-7: #e8ecf5; /* headings, primary text */
+  --mesh-neutral-5: #8b96ad; /* secondary text (6.1:1 on canvas) */
+  --mesh-neutral-6: #c4ccde; /* body text (11.3:1 on canvas) */
+  --mesh-neutral-7: #e8ecf5; /* headings, primary text (15.3:1 on canvas) */
 
-  /* ---- PLACEHOLDER brand palette (replaced by ISI-6046) ----
-   * Chosen only to be WCAG AA-legible on the dark neutrals above; final
-   * palette/typography tokens must land here from the brand identity kit. */
-  --mesh-brand-primary: #4f9cf9; /* placeholder accent (blue) */
-  --mesh-brand-primary-soft: #7fb8fb;
-  --mesh-brand-accent: #35d0a5; /* placeholder secondary (teal/green) */
-  --mesh-brand-accent-soft: #6fe3c4;
+  /* ---- Brand palette — Agent Constellation (ISI-6046) ---- */
+  --mesh-brand-navy: #0a1628; /* deep-space navy: hero surfaces, logo tile */
+  --mesh-brand-primary: #326ce5; /* k8s blue: routes, graphics, large text (3.8:1 on navy) */
+  --mesh-brand-primary-strong: #5b9cf8; /* links/interactive text on dark (6.5:1) */
+  --mesh-brand-primary-soft: #8fbdfc; /* hover fills, charts */
+  --mesh-brand-accent: #2dd4bf; /* route teal: edges, highlights (9.7:1 on navy) */
+  --mesh-brand-accent-soft: #7ee8da;
+  --mesh-brand-accent-strong: #2dd4bf; /* teal as text on dark */
+  --mesh-brand-signal: #22c55e; /* A2A green: signals, success (8.0:1 on navy) */
+  --mesh-brand-signal-soft: #5eead4;
+  --mesh-brand-signal-strong: #22c55e; /* green as text on dark */
+  --mesh-brand-warning: #fbbf24; /* 10.9:1 on navy */
+  --mesh-brand-danger: #f87171; /* 6.6:1 on navy */
 
-  /* ---- PLACEHOLDER typography (replaced by ISI-6046) ----
-   * System stacks keep Lighthouse fast (no webfont fetch) until the final
-   * open-licensed fonts are picked and self-hosted. */
-  --mesh-font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --mesh-font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', 'Consolas',
-    'Liberation Mono', monospace;
+  /* ---- Semantic states (dark theme: text + tinted surface) ---- */
+  --mesh-success-text: var(--mesh-brand-signal-strong);
+  --mesh-success-bg: rgba(34, 197, 94, 0.12);
+  --mesh-warning-text: var(--mesh-brand-warning);
+  --mesh-warning-bg: rgba(251, 191, 36, 0.12);
+  --mesh-danger-text: var(--mesh-brand-danger);
+  --mesh-danger-bg: rgba(248, 113, 113, 0.12);
+  --mesh-info-text: var(--mesh-brand-primary-strong);
+  --mesh-info-bg: rgba(91, 156, 248, 0.12);
+
+  /* ---- Typography — open-licensed variable fonts (OFL) ----
+   * Families: Inter (display + body), JetBrains Mono (operator voice).
+   * Self-host the variable files (e.g. @fontsource-variable/inter,
+   * @fontsource-variable/jetbrains-mono); system fallbacks keep the site
+   * legible and fast before/without the webfonts. License note in
+   * brand/brand-guide.md — both families are SIL OFL, safe for OSS. */
+  --mesh-font-display: 'Inter Variable', 'Inter', ui-sans-serif, system-ui,
+    -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --mesh-font-body: 'Inter Variable', 'Inter', ui-sans-serif, system-ui,
+    -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --mesh-font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace,
+    'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+  --mesh-font-display-weight: 600; /* Inter SemiBold — headings, wordmark */
+  --mesh-font-display-weight-light: 300; /* Inter Light — hero display */
+  --mesh-font-body-weight: 400;
+  --mesh-font-mono-weight: 400;
+  --mesh-font-mono-weight-strong: 600;
+
+  /* ---- Motion (rule: route-only — see brand guide §7) ---- */
+  --mesh-motion-fast: 120ms;
+  --mesh-motion-normal: 200ms;
+  --mesh-motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Light theme brand overrides (AA on light canvas #f6f8fc) ----
+ * Raw brand colors above stay constant; only text-safe variants flip. */
+:root[data-theme='light'] {
+  --mesh-brand-primary-strong: #2b6bc4; /* 4.9:1 on light canvas */
+  --mesh-brand-accent-strong: #0f766e; /* teal as text on light: 5.2:1 */
+  --mesh-brand-signal-strong: #15803d; /* green as text on light: 4.7:1 */
+  --mesh-success-text: var(--mesh-brand-signal-strong);
+  --mesh-danger-text: #b91c1c; /* 5.9:1 on light canvas */
+  --mesh-warning-text: #a16207; /* 5.6:1 on light canvas */
+  --mesh-info-text: var(--mesh-brand-primary-strong);
 }
