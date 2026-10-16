@@ -1,0 +1,66 @@
+/* K8sAgentMesh Starlight theme.
+ *
+ * Maps the canonical tokens in `brand/tokens/tokens.css` onto Starlight's
+ * CSS variables. Dark is the primary theme (:root); light is the override.
+ * Brand palette/typography values are placeholders until the brand identity
+ * kit (ISI-6046) lands — change them in brand/tokens, not here.
+ */
+
+@import '../../brand/tokens/tokens.css';
+
+:root {
+  /* Typography (placeholder system stacks from tokens). */
+  --sl-font: var(--mesh-font-body);
+  --sl-font-mono: var(--mesh-font-mono);
+
+  /* Placeholder brand accent mapped onto Starlight's accent ramp. */
+  --sl-color-accent-low: #16233f;
+  --sl-color-accent: var(--mesh-brand-primary);
+  --sl-color-accent-high: #bcd7fa;
+
+  /* Dark-mode-first neutrals. */
+  --sl-color-white: var(--mesh-neutral-7);
+  --sl-color-gray-1: var(--mesh-neutral-6);
+  --sl-color-gray-2: var(--mesh-neutral-5);
+  --sl-color-gray-3: var(--mesh-neutral-4);
+  --sl-color-gray-4: var(--mesh-neutral-3);
+  --sl-color-gray-5: var(--mesh-neutral-2);
+  --sl-color-gray-6: var(--mesh-neutral-1);
+  --sl-color-black: var(--mesh-neutral-0);
+
+  --sl-color-bg: var(--mesh-neutral-0);
+  --sl-color-bg-nav: rgba(11, 14, 20, 0.85);
+  --sl-color-bg-sidebar: var(--mesh-neutral-0);
+  --sl-color-bg-inline-code: var(--mesh-neutral-1);
+  --sl-color-hairline: var(--mesh-neutral-2);
+  --sl-color-hairline-light: var(--mesh-neutral-2);
+}
+
+/* ---- Light theme (override; dark is primary) ---- */
+:root[data-theme='light'] {
+  --sl-color-accent-low: #d8e6fa;
+  --sl-color-accent: #2f74d0;
+  --sl-color-accent-high: #16345f;
+
+  --sl-color-white: #10131c;
+  --sl-color-gray-1: #1e2536;
+  --sl-color-gray-2: #38435c;
+  --sl-color-gray-3: #5a6883;
+  --sl-color-gray-4: #8c99b3;
+  --sl-color-gray-5: #d7deeb;
+  --sl-color-gray-6: #eef2f9;
+  --sl-color-black: #ffffff;
+
+  --sl-color-bg: #f6f8fc;
+  --sl-color-bg-nav: rgba(246, 248, 252, 0.85);
+  --sl-color-bg-sidebar: #f6f8fc;
+  --sl-color-bg-inline-code: #e8edf6;
+  --sl-color-hairline: #e2e8f2;
+  --sl-color-hairline-light: #e2e8f2;
+}
+
+/* Code blocks stay dark in both themes (infra convention). */
+:root[data-theme='light'] .expressive-code,
+:root[data-theme='light'] .expressive-code .ec-line {
+  --ec-fig-bg: var(--mesh-neutral-0);
+}

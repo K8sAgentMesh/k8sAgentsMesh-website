@@ -1,0 +1,58 @@
+/*
+ * K8sAgentMesh design tokens — canonical location `brand/tokens`.
+ *
+ * STATUS: PLACEHOLDER. The base scales below (spacing, radii, dark-mode-first
+ * neutrals) are stable. The brand palette and typography ramps are placeholders
+ * to be replaced by the brand identity kit (ISI-6046). Nothing in this file is
+ * locked; integrate the final tokens here, in this file only.
+ *
+ * Conventions:
+ *   - dark mode is the primary theme; light overrides live in theme.css
+ *   - spacing scale: 4px base (`--mesh-space-*`)
+ *   - radii: subtle, infra-feeling (`--mesh-radius-*`)
+ */
+
+:root {
+  /* ---- Spacing (4px base) ---- */
+  --mesh-space-1: 0.25rem;
+  --mesh-space-2: 0.5rem;
+  --mesh-space-3: 0.75rem;
+  --mesh-space-4: 1rem;
+  --mesh-space-5: 1.5rem;
+  --mesh-space-6: 2rem;
+  --mesh-space-7: 3rem;
+  --mesh-space-8: 4rem;
+  --mesh-space-9: 6rem;
+
+  /* ---- Radii ---- */
+  --mesh-radius-sm: 4px;
+  --mesh-radius-md: 8px;
+  --mesh-radius-lg: 12px;
+  --mesh-radius-pill: 999px;
+
+  /* ---- Dark-mode-first neutrals (dark canvas → light text) ---- */
+  --mesh-neutral-0: #0b0e14; /* page canvas */
+  --mesh-neutral-1: #111521; /* raised surface / cards */
+  --mesh-neutral-2: #1a2032; /* borders, hairlines */
+  --mesh-neutral-3: #2a3247; /* strong border, subtle fill */
+  --mesh-neutral-4: #4a556e; /* muted text, disabled */
+  --mesh-neutral-5: #8b96ad; /* secondary text */
+  --mesh-neutral-6: #c4ccde; /* body text */
+  --mesh-neutral-7: #e8ecf5; /* headings, primary text */
+
+  /* ---- PLACEHOLDER brand palette (replaced by ISI-6046) ----
+   * Chosen only to be WCAG AA-legible on the dark neutrals above; final
+   * palette/typography tokens must land here from the brand identity kit. */
+  --mesh-brand-primary: #4f9cf9; /* placeholder accent (blue) */
+  --mesh-brand-primary-soft: #7fb8fb;
+  --mesh-brand-accent: #35d0a5; /* placeholder secondary (teal/green) */
+  --mesh-brand-accent-soft: #6fe3c4;
+
+  /* ---- PLACEHOLDER typography (replaced by ISI-6046) ----
+   * System stacks keep Lighthouse fast (no webfont fetch) until the final
+   * open-licensed fonts are picked and self-hosted. */
+  --mesh-font-body: ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --mesh-font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', 'Consolas',
+    'Liberation Mono', monospace;
+}

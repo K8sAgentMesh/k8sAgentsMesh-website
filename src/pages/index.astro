@@ -1,0 +1,325 @@
+---
+// K8sAgentMesh landing page (k8sagentmesh.github.io/k8sAgentsMesh-website).
+// Standalone Astro page at `/` outside Starlight, which owns `/docs/**` and
+// `/concepts/**`. Skeleton bootstrap (ISI-6045): hero, how-it-works strip
+// (Gateway → Route → Memory), GitHub CTA. Dark-mode-first; tokens come from
+// brand/tokens/tokens.css; placeholder brand palette until ISI-6046 lands.
+const BASE = import.meta.env.BASE_URL;
+const GITHUB_URL = 'https://github.com/K8sAgentMesh/K8sAgentMesh';
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="K8sAgentMesh — the mesh layer for agent teams on Kubernetes. Protocol-first communication, discovery, and memory for standing AI agents."
+    />
+    <meta name="color-scheme" content="dark light" />
+    <title>K8sAgentMesh — the mesh layer for agent teams on Kubernetes</title>
+    <link rel="icon" type="image/svg+xml" href={`${BASE}favicon.svg`} />
+    <style>
+      @import '../../brand/tokens/tokens.css';
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-family: var(--mesh-font-body);
+        background: var(--mesh-neutral-0);
+        color: var(--mesh-neutral-6);
+      }
+
+      body {
+        margin: 0;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: var(--mesh-brand-primary);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .wrap {
+        max-width: 72rem;
+        margin: 0 auto;
+        padding: 0 var(--mesh-space-5);
+      }
+
+      /* ---- Header ---- */
+      header {
+        border-bottom: 1px solid var(--mesh-neutral-2);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--mesh-space-4);
+        padding: var(--mesh-space-4) var(--mesh-space-5);
+        max-width: 72rem;
+        margin: 0 auto;
+      }
+      .wordmark {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: var(--mesh-neutral-7);
+        letter-spacing: -0.01em;
+      }
+      .wordmark .mesh {
+        color: var(--mesh-brand-primary);
+      }
+      .nav-links {
+        display: flex;
+        gap: var(--mesh-space-5);
+        font-size: 0.95rem;
+      }
+      .nav-links a {
+        color: var(--mesh-neutral-5);
+      }
+      .nav-links a:hover {
+        color: var(--mesh-neutral-7);
+        text-decoration: none;
+      }
+
+      /* ---- Hero ---- */
+      .hero {
+        padding: var(--mesh-space-9) 0 var(--mesh-space-8);
+        text-align: center;
+      }
+      .kicker {
+        display: inline-block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--mesh-brand-accent-soft);
+        border: 1px solid var(--mesh-neutral-3);
+        border-radius: var(--mesh-radius-pill);
+        padding: var(--mesh-space-1) var(--mesh-space-4);
+        margin-bottom: var(--mesh-space-5);
+      }
+      h1 {
+        font-size: clamp(2.1rem, 5vw, 3.4rem);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin: 0 0 var(--mesh-space-4);
+        color: var(--mesh-neutral-7);
+        max-width: 21ch;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      h1 .accent {
+        color: var(--mesh-brand-primary);
+      }
+      .lede {
+        font-size: 1.15rem;
+        max-width: 62ch;
+        margin: 0 auto var(--mesh-space-6);
+        color: var(--mesh-neutral-5);
+      }
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--mesh-space-4);
+      }
+      .btn {
+        display: inline-block;
+        padding: var(--mesh-space-3) var(--mesh-space-6);
+        border-radius: var(--mesh-radius-md);
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      .btn-primary {
+        background: var(--mesh-brand-primary);
+        color: var(--mesh-neutral-0);
+      }
+      .btn-primary:hover {
+        background: var(--mesh-brand-primary-soft);
+        text-decoration: none;
+      }
+      .btn-ghost {
+        border: 1px solid var(--mesh-neutral-3);
+        color: var(--mesh-neutral-7);
+      }
+      .btn-ghost:hover {
+        border-color: var(--mesh-brand-primary);
+        text-decoration: none;
+      }
+
+      /* ---- How it works ---- */
+      .how {
+        padding: var(--mesh-space-8) 0;
+      }
+      .how h2 {
+        text-align: center;
+        font-size: 1.6rem;
+        letter-spacing: -0.01em;
+        color: var(--mesh-neutral-7);
+        margin: 0 0 var(--mesh-space-6);
+      }
+      .strip {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--mesh-space-5);
+        align-items: stretch;
+      }
+      .step {
+        background: var(--mesh-neutral-1);
+        border: 1px solid var(--mesh-neutral-2);
+        border-radius: var(--mesh-radius-lg);
+        padding: var(--mesh-space-5);
+      }
+      .step .num {
+        font-family: var(--mesh-font-mono);
+        font-size: 0.8rem;
+        color: var(--mesh-brand-accent-soft);
+        display: block;
+        margin-bottom: var(--mesh-space-2);
+      }
+      .step h3 {
+        margin: 0 0 var(--mesh-space-2);
+        font-size: 1.15rem;
+        color: var(--mesh-neutral-7);
+      }
+      .step p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: var(--mesh-neutral-5);
+      }
+      .arrow {
+        display: none;
+      }
+
+      /* ---- Footer ---- */
+      footer {
+        border-top: 1px solid var(--mesh-neutral-2);
+        margin-top: var(--mesh-space-8);
+        padding: var(--mesh-space-6) 0;
+        font-size: 0.9rem;
+        color: var(--mesh-neutral-4);
+      }
+      footer .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--mesh-space-4);
+        justify-content: space-between;
+      }
+
+      /* Light theme override for the standalone page. */
+      @media (prefers-color-scheme: light) {
+        html[data-theme='light'] {
+          background: #f6f8fc;
+          color: #38435c;
+        }
+        html[data-theme='light'] .wordmark,
+        html[data-theme='light'] h1,
+        html[data-theme='light'] h2,
+        html[data-theme='light'] .step h3,
+        html[data-theme='light'] .btn-ghost {
+          color: #10131c;
+        }
+        html[data-theme='light'] .step {
+          background: #ffffff;
+          border-color: #e2e8f2;
+        }
+        html[data-theme='light'] .nav-links a,
+        html[data-theme='light'] .lede,
+        html[data-theme='light'] .step p {
+          color: #5a6883;
+        }
+      }
+
+      /* Responsive: stack the strip under ~48rem. */
+      @media (max-width: 48rem) {
+        .strip {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="nav">
+        <a class="wordmark" href={`${BASE}`}>
+          K8sAgent<span class="mesh">Mesh</span>
+        </a>
+        <div class="nav-links">
+          <a href={`${BASE}docs/`}>Docs</a>
+          <a href={`${BASE}concepts/architecture/`}>Concepts</a>
+          <a href={GITHUB_URL}>GitHub</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <span class="kicker">Protocol-first agent mesh</span>
+        <h1>
+          The <span class="accent">mesh layer</span> for agent teams on
+          Kubernetes
+        </h1>
+        <p class="lede">
+          K8sAgentMesh is the runtime-agnostic seam for standing AI agents:
+          communication, discovery, and memory for self-orchestrating agent
+          teams — a mesh any platform can host.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href={GITHUB_URL}>View on GitHub</a>
+          <a class="btn btn-ghost" href={`${BASE}docs/`}>Read the docs</a>
+        </div>
+      </section>
+
+      <section class="how wrap">
+        <h2>How it works</h2>
+        <div class="strip">
+          <div class="step">
+            <span class="num">01</span>
+            <h3>Gateway</h3>
+            <p>
+              Every pod runs a per-pod gateway — the agent process manager that
+              owns spawn, registration, and lifecycle.
+            </p>
+          </div>
+          <div class="step">
+            <span class="num">02</span>
+            <h3>Route</h3>
+            <p>
+              The router moves A2A wire traffic between agents across the mesh:
+              task, event, status, and model routes.
+            </p>
+          </div>
+          <div class="step">
+            <span class="num">03</span>
+            <h3>Memory</h3>
+            <p>
+              A temporal memory contract keeps team context durable across
+              ephemeral agent lifecycles.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span>Apache-2.0 — K8sAgentMesh Authors</span>
+        <span
+          >Staging at
+          <a href="https://k8sagentmesh.github.io/k8sAgentsMesh-website/"
+            >k8sagentmesh.github.io</a
+          ></span
+        >
+      </div>
+    </footer>
+  </body>
+</html>
