@@ -1,17 +1,20 @@
 /*
  * K8sAgentMesh design tokens — canonical location `brand/tokens`.
  *
- * Source of truth: brand identity kit, ISI-6046, direction B — Agent
- * Constellation (board-accepted on ISI-6042, decision card cc83324a).
- * Full usage rules: `brand/brand-guide.md`.
+ * Source of truth: brand identity kit, ISI-6046 — Viking North-Cross
+ * Constellation Compass (board-locked 2026-10-17; kit approval card
+ * ba1755b0). This palette supersedes the earlier Agent Constellation
+ * baseline. Full usage rules: brand guide (ISI-6046 attachment; kit
+ * copy at `branding/logo/brand-guide.md` in the agentMesh repo).
  *
  * Conventions:
  *   - dark mode is the primary theme; light overrides live in theme.css
  *     and in the `[data-theme='light']` block below (brand text colors only)
  *   - spacing scale: 4px base (`--mesh-space-*`)
  *   - radii: subtle, infra-feeling (`--mesh-radius-*`)
- *   - brand colors: `#326CE5` k8s-blue is for routes/graphics and large
- *     text (3.8:1 on navy); use the `*-strong` variants for body-size text
+ *   - brand colors: the 6 CORE `--k8sam-*` hexes below are board-locked —
+ *     changes go via PR to this directory only; use the `*-strong`
+ *     variants for body-size text
  */
 
 :root {
@@ -42,15 +45,32 @@
   --mesh-neutral-6: #c4ccde; /* body text (11.3:1 on canvas) */
   --mesh-neutral-7: #e8ecf5; /* headings, primary text (15.3:1 on canvas) */
 
-  /* ---- Brand palette — Agent Constellation (ISI-6046) ---- */
-  --mesh-brand-navy: #0a1628; /* deep-space navy: hero surfaces, logo tile */
-  --mesh-brand-primary: #326ce5; /* k8s blue: routes, graphics, large text (3.8:1 on navy) */
-  --mesh-brand-primary-strong: #5b9cf8; /* links/interactive text on dark (6.5:1) */
-  --mesh-brand-primary-soft: #8fbdfc; /* hover fills, charts */
-  --mesh-brand-accent: #2dd4bf; /* route teal: edges, highlights (9.7:1 on navy) */
-  --mesh-brand-accent-soft: #7ee8da;
-  --mesh-brand-accent-strong: #2dd4bf; /* teal as text on dark */
-  --mesh-brand-signal: #22c55e; /* A2A green: signals, success (8.0:1 on navy) */
+  /* ---- Brand palette — Viking North-Cross Constellation Compass (ISI-6046) ----
+   * CORE: the 6 board-locked gradient anchors. Change via PR only. */
+  --k8sam-bg-depth-1: #101B30; /* mid-navy — radial gradient focus */
+  --k8sam-bg-depth-2: #0B1220; /* deep navy — page canvas */
+  --k8sam-bg-depth-3: #070D17; /* deepest navy — edges/footer */
+  --k8sam-primary-bright: #7DE9FA; /* glacier cyan — top of primary gradient */
+  --k8sam-primary-teal:   #2DD4BF; /* compass teal — bottom of primary gradient */
+  --k8sam-accent-sky:  #38BDF8; /* sky blue — diagonal gradient top */
+  --k8sam-accent-cyan: #22D3EE; /* signal cyan — diagonal gradient bottom, antenna, mesh links */
+
+  /* Supporting (kit values, follow the CORE anchors) */
+  --k8sam-star-satellite: #A5F3FC; /* secondary agent stars, bot eyes */
+  --k8sam-star-core:      #E0FBFF; /* hub halo, antenna tips, north pointer */
+  --k8sam-star-white:     #FFFFFF; /* hub center */
+  --k8sam-sail-mint: #5EEAD4; /* taut sail arcs at 0.35–0.5 opacity */
+  --k8sam-bot-hull:  #0E1B2E; /* agent bot chip head fill */
+
+  /* ---- Site-facing brand aliases (map the theme onto CORE) ---- */
+  --mesh-brand-navy: #0b1220; /* locked page canvas (bg-depth-2): hero surfaces, logo tile */
+  --mesh-brand-primary: #2dd4bf; /* compass teal: rays, routes, graphics, large text */
+  --mesh-brand-primary-strong: #7de9fa; /* glacier cyan — links/interactive text on dark */
+  --mesh-brand-primary-soft: #a5f3fc; /* hover fills, charts (star-satellite) */
+  --mesh-brand-accent: #22d3ee; /* signal cyan: edges, highlights, mesh links */
+  --mesh-brand-accent-soft: #38bdf8; /* sky blue: hover fills, charts */
+  --mesh-brand-accent-strong: #2dd4bf; /* teal as text on dark (9.7:1 on canvas) */
+  --mesh-brand-signal: #22c55e; /* semantic success only — not a brand CORE */
   --mesh-brand-signal-soft: #5eead4;
   --mesh-brand-signal-strong: #22c55e; /* green as text on dark */
   --mesh-brand-warning: #fbbf24; /* 10.9:1 on navy */
@@ -64,7 +84,7 @@
   --mesh-danger-text: var(--mesh-brand-danger);
   --mesh-danger-bg: rgba(248, 113, 113, 0.12);
   --mesh-info-text: var(--mesh-brand-primary-strong);
-  --mesh-info-bg: rgba(91, 156, 248, 0.12);
+  --mesh-info-bg: rgba(125, 233, 250, 0.12);
 
   /* ---- Typography — open-licensed variable fonts (OFL) ----
    * Families: Inter (display + body), JetBrains Mono (operator voice).
@@ -93,8 +113,8 @@
 /* ---- Light theme brand overrides (AA on light canvas #f6f8fc) ----
  * Raw brand colors above stay constant; only text-safe variants flip. */
 :root[data-theme='light'] {
-  --mesh-brand-primary-strong: #2b6bc4; /* 4.9:1 on light canvas */
-  --mesh-brand-accent-strong: #0f766e; /* teal as text on light: 5.2:1 */
+  --mesh-brand-primary-strong: #0f766e; /* teal as text on light: 5.2:1 */
+  --mesh-brand-accent-strong: #0e7490; /* cyan as text on light: 4.9:1 */
   --mesh-brand-signal-strong: #15803d; /* green as text on light: 4.7:1 */
   --mesh-success-text: var(--mesh-brand-signal-strong);
   --mesh-danger-text: #b91c1c; /* 5.9:1 on light canvas */
