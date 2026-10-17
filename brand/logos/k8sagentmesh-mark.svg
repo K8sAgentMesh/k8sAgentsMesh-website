@@ -6,20 +6,11 @@
     <line x1="128.00" y1="58.15" x2="128.00" y2="48.15" stroke="#2DD4BF" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
     <line x1="38.15" y1="148.00" x2="28.15" y2="148.00" stroke="#2DD4BF" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
     <line x1="128.00" y1="237.85" x2="128.00" y2="247.85" stroke="#2DD4BF" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
-    <path d="M 73.45 88.33 L 128 148 L 182.55 88.33" fill="none" stroke="#326CE5" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 73.45 88.33 L 117.88 136.93 M 182.55 88.33 L 138.12 136.93" fill="none" stroke="#326CE5" stroke-width="8" stroke-linecap="round"/>
     <circle cx="165.1" cy="107.4" r="6" fill="#22C55E" fill-opacity="1.0"/>
     <circle cx="107.5" cy="125.6" r="4.5" fill="#22C55E" fill-opacity="0.6"/>
-    <circle cx="128" cy="148" r="40" fill="none" stroke="#326CE5" stroke-width="6.5"/>
-    <line x1="174.00" y1="148.00" x2="182.00" y2="148.00" stroke="#326CE5" stroke-width="5" stroke-linecap="round"/>
-    <line x1="160.53" y1="180.53" x2="166.18" y2="186.18" stroke="#326CE5" stroke-width="5" stroke-linecap="round"/>
-    <line x1="128.00" y1="194.00" x2="128.00" y2="202.00" stroke="#326CE5" stroke-width="5" stroke-linecap="round"/>
-    <line x1="95.47" y1="180.53" x2="89.82" y2="186.18" stroke="#326CE5" stroke-width="5" stroke-linecap="round"/>
-    <line x1="82.00" y1="148.00" x2="74.00" y2="148.00" stroke="#326CE5" stroke-width="5" stroke-linecap="round"/>
-    <line x1="95.47" y1="115.47" x2="89.82" y2="109.82" stroke="#326CE5" stroke-width="5" stroke-linecap="round"/>
-    <line x1="128.00" y1="102.00" x2="128.00" y2="94.00" stroke="#326CE5" stroke-width="5" stroke-linecap="round"/>
-    <line x1="160.53" y1="115.47" x2="166.18" y2="109.82" stroke="#326CE5" stroke-width="5" stroke-linecap="round"/>
-    <circle cx="128" cy="148" r="28" fill="#E8ECF5"/>
-    <path fill-rule="evenodd" fill="#2DD4BF" d="M 50.00 78.00 a 14 14 0 1 0 28.00 0 a 14 14 0 1 0 -28.00 0 Z M 64.00 70.00 L 70.00 84.00 L 58.00 84.00 Z"/>
-    <path fill-rule="evenodd" fill="#2DD4BF" d="M 178.00 78.00 a 14 14 0 1 0 28.00 0 a 14 14 0 1 0 -28.00 0 Z M 192.00 70.00 L 198.00 84.00 L 186.00 84.00 Z"/>
+    <path d="M 128.00 110.00 L 138.12 148.00 L 128.00 148.00 L 117.88 148.00 Z M 166.00 148.00 L 128.00 158.12 L 128.00 148.00 L 128.00 137.88 Z M 128.00 186.00 L 117.88 148.00 L 128.00 148.00 L 138.12 148.00 Z M 90.00 148.00 L 128.00 137.88 L 128.00 148.00 L 128.00 158.12 Z M 115.00 148.00 a 13 13 0 1 0 26.00 0 a 13 13 0 1 0 -26.00 0 Z" fill="#E8ECF5"/>
+    <circle cx="64" cy="78" r="14" fill="#2DD4BF"/>
+    <circle cx="192" cy="78" r="14" fill="#2DD4BF"/>
   </g>
 </svg>
