@@ -24,3 +24,5 @@ jobs:
         run: npm ci
       - name: Build
         run: npm run build
+      - name: Docs sync check
+        run: node scripts/check-docs-sync.mjs

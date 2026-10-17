@@ -1,0 +1,43 @@
+{
+  "mainRepoUrl": "https://github.com/K8sAgentMesh/K8sAgentMesh.git",
+  "mainRepoBranch": "main",
+  "commitSubjects": ["P3.1", "P3.2", "P3.3", "P3.4", "P3.5", "P3.6", "P3.8"],
+  "tags": ["v0.1.0"],
+  "files": [
+    "a2a/types.go",
+    "mesh/EVENTS.md",
+    "hack/extraction-clean.sh",
+    "hack/crd-structural-validate.sh",
+    "apis/mesh/v1alpha1/crd/meshpools.mesh.k8sagentmesh.io.yaml",
+    "apis/mesh/v1alpha1/crd/meshroutes.mesh.k8sagentmesh.io.yaml",
+    "apis/mesh/v1alpha1/crd/meshtelemetries.mesh.k8sagentmesh.io.yaml"
+  ],
+  "contains": [
+    { "file": "mesh/mesh.go", "pattern": "type RuntimeAdapter interface" },
+    { "file": "mesh/mesh.go", "pattern": "Spawn(ctx context.Context" },
+    { "file": "mesh/mesh.go", "pattern": "Register(ctx context.Context" },
+    { "file": "mesh/mesh.go", "pattern": "Route(ctx context.Context" },
+    { "file": "mesh/mesh.go", "pattern": "Hibernate(ctx context.Context" },
+    { "file": "mesh/mesh.go", "pattern": "Wake(ctx context.Context" },
+    { "file": "mesh/mesh.go", "pattern": "Stop(ctx context.Context" },
+    { "file": "mesh/mesh.go", "pattern": "Recreate(ctx context.Context" },
+    { "file": "mesh/scheduling.go", "pattern": "type SchedulingPolicy interface" },
+    { "file": "mesh/lifecycle.go", "pattern": "type LifecycleObserver interface" },
+    { "file": "mesh/lifecycle.go", "pattern": "type RouteSelection string" },
+    { "file": "mesh/registry.go", "pattern": "type Registry interface" },
+    { "file": "mesh/sweeper.go", "pattern": "type Sweeper struct" },
+    { "file": "mesh/gateway.go", "pattern": "type GatewayConfig struct" },
+    { "file": "mesh/gateway.go", "pattern": "Observer LifecycleObserver" },
+    { "file": "mesh/events.go", "pattern": "func SnapshotProcessStates" },
+    { "file": "a2a/types.go", "pattern": "type Task struct" },
+    { "file": "a2a/types.go", "pattern": "type Event struct" },
+    { "file": "a2a/types.go", "pattern": "type Status struct" },
+    { "file": "a2a/types.go", "pattern": "type AgentCard struct" },
+    { "file": "a2a/types.go", "pattern": "type ModelRoute struct" },
+    { "file": "a2a/types.go", "pattern": "k8sagentmesh.a2a/v1" },
+    { "file": "apis/mesh/v1alpha1/crd/meshpools.mesh.k8sagentmesh.io.yaml", "pattern": "kind: MeshPool" },
+    { "file": "apis/mesh/v1alpha1/crd/meshroutes.mesh.k8sagentmesh.io.yaml", "pattern": "kind: MeshRoute" },
+    { "file": "apis/mesh/v1alpha1/crd/meshtelemetries.mesh.k8sagentmesh.io.yaml", "pattern": "kind: MeshTelemetry" }
+  ],
+  "extractionCleanForbidden": "github.com/K8squad/K8squad/"
+}

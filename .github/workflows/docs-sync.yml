@@ -1,0 +1,29 @@
+name: Docs sync
+
+# Keeps the site's module-surface claims in sync with the live main repo
+# (github.com/K8sAgentMesh/K8sAgentMesh). The check clones the main repo and
+# verifies src/data/main-repo-facts.json against it — see
+# scripts/check-docs-sync.mjs.
+
+on:
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docs-sync:
+    name: Docs sync check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout website
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify docs claims against the main repo
+        run: node scripts/check-docs-sync.mjs

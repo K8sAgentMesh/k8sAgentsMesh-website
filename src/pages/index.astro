@@ -1,11 +1,50 @@
 ---
 // K8sAgentMesh landing page (k8sagentmesh.github.io/k8sAgentsMesh-website).
-// Standalone Astro page at `/` outside Starlight, which owns `/docs/**` and
-// `/concepts/**`. Skeleton bootstrap (ISI-6045): hero, how-it-works strip
-// (Gateway → Route → Memory), GitHub CTA. Dark-mode-first; tokens come from
-// brand/tokens/tokens.css; placeholder brand palette until ISI-6046 lands.
+// Standalone Astro page at `/` outside Starlight, which owns `/docs/**`,
+// `/concepts/**`, `/blog/**` and `/community/**`.
+// Content-complete build (ISI-6047): hero, feature grid, how-it-works strip
+// (Gateway → Route → Memory), hosts section, GitHub CTA.
+// Dark-mode-first; tokens come from brand/tokens/tokens.css.
 const BASE = import.meta.env.BASE_URL;
 const GITHUB_URL = 'https://github.com/K8sAgentMesh/K8sAgentMesh';
+const FEATURES = [
+  {
+    num: '01',
+    title: 'Runtime-agnostic seam',
+    body: 'Everything a runtime must provide is the 7-op RuntimeAdapter contract — Spawn, Register, Route, Hibernate, Wake, Stop, Recreate. Two adapters ship as references; a third means zero control-plane change.',
+    href: `${BASE}concepts/architecture/`,
+  },
+  {
+    num: '02',
+    title: 'Per-pod gateways',
+    body: 'Each pod runs a Gateway — the process manager that owns the agent lifecycle inside the pod, speaking the contract downward and A2A wire traffic upward.',
+    href: `${BASE}concepts/lifecycle/`,
+  },
+  {
+    num: '03',
+    title: 'A2A wire types',
+    body: 'Task, Event, Status, AgentCard, ModelRoute — the module owns the wire shapes; hosts stamp their own schema brand and pin their accepted revisions.',
+    href: `${BASE}concepts/architecture/`,
+  },
+  {
+    num: '04',
+    title: 'Lifecycle events, by contract',
+    body: 'Route, spawn and wake events ride a transport-agnostic contract: the Gateway is the sole producer, your LifecycleObserver the sole consumer. No telemetry SDK in the mesh — ever.',
+    href: `${BASE}concepts/telemetry/`,
+  },
+  {
+    num: '05',
+    title: 'Scheduling as policy',
+    body: 'The mesh runs a generic target-N scheduler loop; who deserves a slot is your SchedulingPolicy. k8squad\u2019s RolePool is policy #1 — projecting into MeshPool semantics, never replaced.',
+    href: `${BASE}concepts/scheduling/`,
+  },
+  {
+    num: '06',
+    title: 'Temporal memory contract',
+    body: 'Team context — decisions, artifacts, conversation state — is durable and addressable across ephemeral agent lifecycles. A recreated agent resumes with its history intact.',
+    href: `${BASE}concepts/memory/`,
+  },
+];
 ---
 
 <!doctype html>
@@ -156,16 +195,57 @@ const GITHUB_URL = 'https://github.com/K8sAgentMesh/K8sAgentMesh';
         text-decoration: none;
       }
 
-      /* ---- How it works ---- */
-      .how {
-        padding: var(--mesh-space-8) 0;
-      }
-      .how h2 {
+      section h2 {
         text-align: center;
         font-size: 1.6rem;
         letter-spacing: -0.01em;
         color: var(--mesh-neutral-7);
         margin: 0 0 var(--mesh-space-6);
+      }
+
+      /* ---- Features ---- */
+      .features {
+        padding: var(--mesh-space-8) 0;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--mesh-space-5);
+        align-items: stretch;
+      }
+      .card {
+        background: var(--mesh-neutral-1);
+        border: 1px solid var(--mesh-neutral-2);
+        border-radius: var(--mesh-radius-lg);
+        padding: var(--mesh-space-5);
+        color: inherit;
+        display: block;
+      }
+      .card:hover {
+        border-color: var(--mesh-brand-primary);
+        text-decoration: none;
+      }
+      .card .num {
+        font-family: var(--mesh-font-mono);
+        font-size: 0.8rem;
+        color: var(--mesh-brand-accent-soft);
+        display: block;
+        margin-bottom: var(--mesh-space-2);
+      }
+      .card h3 {
+        margin: 0 0 var(--mesh-space-2);
+        font-size: 1.15rem;
+        color: var(--mesh-neutral-7);
+      }
+      .card p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: var(--mesh-neutral-5);
+      }
+
+      /* ---- How it works ---- */
+      .how {
+        padding: var(--mesh-space-8) 0;
       }
       .strip {
         display: grid;
@@ -196,8 +276,31 @@ const GITHUB_URL = 'https://github.com/K8sAgentMesh/K8sAgentMesh';
         font-size: 0.95rem;
         color: var(--mesh-neutral-5);
       }
-      .arrow {
-        display: none;
+
+      /* ---- Hosts ---- */
+      .hosts {
+        padding: var(--mesh-space-8) 0;
+      }
+      .hosts .pane {
+        background: var(--mesh-brand-navy);
+        border: 1px solid var(--mesh-neutral-2);
+        border-radius: var(--mesh-radius-lg);
+        padding: var(--mesh-space-6);
+        max-width: 62ch;
+        margin: 0 auto;
+        text-align: left;
+      }
+      .hosts .pane h3 {
+        margin: 0 0 var(--mesh-space-2);
+        font-size: 1.2rem;
+        color: var(--mesh-neutral-7);
+      }
+      .hosts .pane p {
+        margin: 0 0 var(--mesh-space-3);
+        color: var(--mesh-neutral-5);
+      }
+      .hosts .pane p:last-child {
+        margin: 0;
       }
 
       /* ---- Footer ---- */
@@ -223,26 +326,50 @@ const GITHUB_URL = 'https://github.com/K8sAgentMesh/K8sAgentMesh';
         }
         html[data-theme='light'] .wordmark,
         html[data-theme='light'] h1,
-        html[data-theme='light'] h2,
+        html[data-theme='light'] section h2,
+        html[data-theme='light'] .card h3,
         html[data-theme='light'] .step h3,
+        html[data-theme='light'] .hosts .pane h3,
         html[data-theme='light'] .btn-ghost {
           color: #10131c;
         }
+        html[data-theme='light'] .card,
         html[data-theme='light'] .step {
+          background: #ffffff;
+          border-color: #e2e8f2;
+        }
+        html[data-theme='light'] .card:hover {
+          border-color: #0f766e;
+        }
+        html[data-theme='light'] .hosts .pane {
           background: #ffffff;
           border-color: #e2e8f2;
         }
         html[data-theme='light'] .nav-links a,
         html[data-theme='light'] .lede,
-        html[data-theme='light'] .step p {
+        html[data-theme='light'] .card p,
+        html[data-theme='light'] .step p,
+        html[data-theme='light'] .hosts .pane p {
           color: #5a6883;
+        }
+        html[data-theme='light'] .btn-primary {
+          background: #0f766e;
+          color: #ffffff;
+        }
+        html[data-theme='light'] .kicker {
+          color: #0e7490;
         }
       }
 
-      /* Responsive: stack the strip under ~48rem. */
+      /* Responsive: stack grids under ~48rem. */
       @media (max-width: 48rem) {
+        .grid,
         .strip {
           grid-template-columns: 1fr;
+        }
+        .nav-links {
+          gap: var(--mesh-space-4);
+          font-size: 0.9rem;
         }
       }
     </style>
@@ -256,6 +383,8 @@ const GITHUB_URL = 'https://github.com/K8sAgentMesh/K8sAgentMesh';
         <div class="nav-links">
           <a href={`${BASE}docs/`}>Docs</a>
           <a href={`${BASE}concepts/architecture/`}>Concepts</a>
+          <a href={`${BASE}blog/`}>Blog</a>
+          <a href={`${BASE}community/`}>Community</a>
           <a href={GITHUB_URL}>GitHub</a>
         </div>
       </nav>
@@ -276,6 +405,21 @@ const GITHUB_URL = 'https://github.com/K8sAgentMesh/K8sAgentMesh';
         <div class="cta-row">
           <a class="btn btn-primary" href={GITHUB_URL}>View on GitHub</a>
           <a class="btn btn-ghost" href={`${BASE}docs/`}>Read the docs</a>
+        </div>
+      </section>
+
+      <section class="features wrap">
+        <h2>What the mesh gives you</h2>
+        <div class="grid">
+          {
+            FEATURES.map((f) => (
+              <a class="card" href={f.href}>
+                <span class="num">{f.num}</span>
+                <h3>{f.title}</h3>
+                <p>{f.body}</p>
+              </a>
+            ))
+          }
         </div>
       </section>
 
@@ -306,6 +450,27 @@ const GITHUB_URL = 'https://github.com/K8sAgentMesh/K8sAgentMesh';
               ephemeral agent lifecycles.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section class="hosts wrap">
+        <h2>Hosts, not owners</h2>
+        <div class="pane">
+          <h3>Keep your control plane</h3>
+          <p>
+            The module owns the mechanism — gateways, routing, lifecycle,
+            registration seams, the event contract — and nothing else. Scheduling
+            decisions, identity, telemetry backends and memory stores stay
+            host-side, plugged in behind the seams.
+          </p>
+          <p>
+            k8squad is host #1: it pins the module with its role-based
+            scheduling running as SchedulingPolicy #1, and its CRDs project into
+            the mesh contracts rather than being replaced by them.
+          </p>
+          <p>
+            <a href={`${BASE}concepts/hosts/`}>What the module owns vs. what stays host-side →</a>
+          </p>
         </div>
       </section>
     </main>
