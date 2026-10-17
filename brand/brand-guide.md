@@ -3,6 +3,7 @@
 Direction **B — Agent Constellation**, accepted by the board on [ISI-6042] decision card `cc83324a` (2026-10-16). Produced by the brand identity kit, [ISI-6046].
 
 - Lead glyph: **B2 Hub Constellation** — a hub node with a gateway ring, two agents orbiting on a dotted route orbit, and k8s-blue routes descending to the hub. The two descending routes carry the **B1 "Constellation M"** silhouette: the routes plus the orbit arc above them read as an `M` at small sizes.
+- **Navigator accents (v2)** — the cloud-native sailing lineage, per board feedback: the hub's gateway ring carries **helm spokes** (a ship's wheel — Kubernetes, "helmsman"); each agent node is a **vessel with a sail cut-out** (Istio, "sail"); the dotted orbit gains **four cardinal compass ticks** (Harbor, port and navigation). The story: an agent fleet navigating by constellation, steered from the hub.
 - Supporting languages: **C — Gateway Geometry** (double-ring rounded rectangles for gateways) governs architecture diagrams; **A — Mesh Lattice** is demoted to a subtle background texture (hairline grid, ≤45% opacity, never a foreground element).
 - Semantics are fixed: **k8s-blue = routes**, **route-teal = edges/agents**, **A2A-green = signals**, near-white = the hub/control plane.
 
@@ -20,7 +21,7 @@ All sources live in `brand/logos/` (SVG + PNG exports). Wordmarks are exact vect
 | GitHub org avatar | `logos/k8sagentmesh-avatar.svg` + `-512/-256/-128.png` | Org avatar — content sits inside a circle-safe zone, survives circle/square crops |
 | Favicon | `logos/k8sagentmesh-favicon.svg` + `-64/-32/-16.png` | Browser tab; simplified hub + two agents, verified legible at 16px |
 
-Construction (256 design units): hub node r=28 at (128,148); gateway ring r=40, stroke 6.5; agents r=14 at (64,78) and (192,78); orbit r≈94.85 dotted (dash `0.1 8.5`); routes stroke 8; signals r=6 and r=4.5 on the routes.
+Construction (256 design units): hub node r=28 at (128,148); gateway ring r=40, stroke 6.5, plus 8 helm spokes r=46–54, stroke 5; agent vessels r=14 at (64,78) and (192,78), each with a sail cut-out (apex 8 above center, half-base 6); orbit r≈94.85 dotted (dash `0.1 8.5`) with 4 cardinal compass ticks; routes stroke 8, terminating at the agent hulls so the sails read as clean negative space; signals r=6 and r=4.5 on the routes. The simplified favicon intentionally drops the navigator detail (helm spokes, sails, ticks) — it is legibility-first at 16px.
 
 ## 2. Clear space and minimum sizes
 
@@ -99,6 +100,11 @@ brand/
   diagrams/                 diagram-style sample (SVG + PNG)
   preview/brand-sheet.png   one-page board-review poster
 ```
+
+## 9. Changelog
+
+- **v1 (2026-10-16)** — initial kit on the accepted Territory B baseline: B2 Hub Constellation glyph, palette, tokens, diagram style, guide.
+- **v2 (2026-10-17)** — navigator accents per board feedback (sailing/cloud-native lineage): helm spokes on the gateway ring, sail cut-outs in the agent vessels, cardinal compass ticks on the orbit; routes terminate at the hulls. Favicon unchanged (legibility-first simplification). Verified: 16px gate, mark structure probes (hub, rims, sail cut-out, routes, spokes, ticks, signals), AA contrast matrix unchanged.
 
 [ISI-6042]: /ISI/issues/ISI-6042
 [ISI-6046]: /ISI/issues/ISI-6046
