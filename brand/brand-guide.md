@@ -3,7 +3,7 @@
 Direction **B — Agent Constellation**, accepted by the board on [ISI-6042] decision card `cc83324a` (2026-10-16). Produced by the brand identity kit, [ISI-6046].
 
 - Lead glyph: **B2 Hub Constellation** — a hub node with a gateway ring, two agents orbiting on a dotted route orbit, and k8s-blue routes descending to the hub. The two descending routes carry the **B1 "Constellation M"** silhouette: the routes plus the orbit arc above them read as an `M` at small sizes.
-- **North cross at the hub (v3)** — the hub is a **four-pointed north cross** (viking compass / compass rose), which is doubly on-concept: it is the sailor's bearing-finder and the Northern Cross is itself a constellation (Cygnus). The dotted orbit keeps its **four cardinal compass ticks** as a chart ring. The v2 helm spokes and agent sail cut-outs were removed for clarity per board feedback.
+- **Viking compass at the hub (v4)** — per the board's inspiration image (an 8-armed compass medallion on navy): the hub is an **eight-point compass rose** — four long kite rays at the cardinals, four short rays at the diagonals, a core circle, framed by a thin **medallion ring**. It carries the cloud-native nautical lineage (kubernetes = helmsman, istio = sail, harbor = port) in one clean symbol, and stays on the constellation story: the Northern Cross is itself a constellation. The dotted orbit keeps its **four cardinal compass ticks**, aligned with the long rays.
 - Supporting languages: **C — Gateway Geometry** (double-ring rounded rectangles for gateways) governs architecture diagrams; **A — Mesh Lattice** is demoted to a subtle background texture (hairline grid, ≤45% opacity, never a foreground element).
 - Semantics are fixed: **k8s-blue = routes**, **route-teal = edges/agents**, **A2A-green = signals**, near-white = the hub/control plane.
 
@@ -19,9 +19,9 @@ All sources live in `brand/logos/` (SVG + PNG exports). Wordmarks are exact vect
 | Monochrome dark | `logos/k8sagentmesh-mark-mono-dark.svg` + `-512.png` | One-color on light surfaces |
 | Horizontal lockup | `logos/k8sagentmesh-lockup-horizontal.svg` (+ mono light/dark) | Site header, docs, README |
 | GitHub org avatar | `logos/k8sagentmesh-avatar.svg` + `-512/-256/-128.png` | Org avatar — content sits inside a circle-safe zone, survives circle/square crops |
-| Favicon | `logos/k8sagentmesh-favicon.svg` + `-64/-32/-16.png` | Browser tab; simplified north cross + two agents, verified legible at 16px |
+| Favicon | `logos/k8sagentmesh-favicon.svg` + `-64/-32/-16.png` | Browser tab; simplified viking compass + two agents, verified legible at 16px |
 
-Construction (256 design units): hub = north cross at (128,148) — four kite rays to r=38 at the cardinals (half-width 10 at the core) plus a core circle r=13; agents r=14 at (64,78) and (192,78); orbit r≈94.85 dotted (dash `0.1 8.5`) with 4 cardinal compass ticks (half-length 5); routes stroke 8, terminating at the core edge; signals r=6 and r=4.5 on the routes. The favicon draws the cross bolder (rays to 14, arms 12, core 6) so it still resolves at 16px.
+Construction (256 design units): hub = viking compass at (128,148) — 4 long kite rays to r=38 (half-width 10.1 at the core) at the cardinals, 4 short rays to r=26 (half-width 6.75) at the diagonals, core circle r=13, medallion ring r=44 at 2.5 stroke; agents r=14 at (64,78) and (192,78); orbit r≈94.85 dotted (dash `0.1 8.5`) with 4 cardinal compass ticks (half-length 5); routes stroke 8, terminating at the core edge; signals r=6 and r=4.5 on the routes. The favicon draws the compass bolder (long rays to 14, short to 9, core 5) so it still resolves at 16px.
 
 ## 2. Clear space and minimum sizes
 
@@ -105,7 +105,8 @@ brand/
 
 - **v1 (2026-10-16)** — initial kit on the accepted Territory B baseline: B2 Hub Constellation glyph, palette, tokens, diagram style, guide.
 - **v2 (2026-10-17)** — navigator accents (helm spokes, sail cut-outs, compass ticks) per board feedback. Rejected by the board: compass liked, mark read as unclear.
-- **v3 (2026-10-17)** — "Viking north cross" per board rejection reason: hub becomes a four-pointed north cross (compass rose / Northern Cross constellation); compass ticks kept; helm spokes and sails removed for clarity. Favicon redrawn with a bolder cross, 16px gate re-verified. Verified: mark structure probes (core, rays, clean background between rays, agents, routes, ticks, signals), AA contrast matrix unchanged.
+- **v3 (2026-10-17)** — "Viking north cross" per board rejection reason: hub becomes a four-pointed north cross (compass rose / Northern Cross constellation); compass ticks kept; helm spokes and sails removed for clarity.
+- **v4 (2026-10-17)** — per the board's inspiration image (8-armed viking compass medallion): the hub becomes an eight-point compass rose (4 long cardinal rays + 4 short diagonal rays + core) framed by a thin medallion ring; favicon redrawn bolder and 16px gate re-verified. Fixed a latent fill-rule defect (core-circle subpath winding against the rays punched holes over routes) by emitting core and ring as separate circle elements. Verified: mark structure probes (core, cardinal and diagonal rays, ring, clean background between rays, agents, routes, ticks, signals), AA contrast matrix unchanged.
 
 [ISI-6042]: /ISI/issues/ISI-6042
 [ISI-6046]: /ISI/issues/ISI-6046
