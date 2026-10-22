@@ -7,28 +7,19 @@ K8sAgentMesh is a **protocol-first agent mesh for Kubernetes**: pod-level
 gateways, standing A2A agents, ephemeral lifecycles, and a temporal memory
 contract. This page is the map of how the pieces fit.
 
-```text
-            ┌──────────────────────────────────────────────┐
-            │                 MESH MODULE                  │
-            │                                              │
- A2A wire ─▶│  Router ──▶ Route selection ──▶ Registry      │
- (Task,      │                │                (endpoints)  │
-  Event,     │         Per-pod Gateway                     │
-  Status,    │          ├─ lifecycle state machine          │
-  AgentCard, │          ├─ child-process substrate           │
-  ModelRoute)│          └─ RuntimeAdapter (7 ops)            │
-            │                 │                              │
-            │  apis/mesh/v1alpha1 — MeshPool / MeshRoute /   │
-            │  MeshTelemetry (CRD contracts, no controller)  │
-            └──────────────────┬───────────────────────────┘
-                               │ implements
-                    ┌──────────▼──────────┐
-                    │   HOST (e.g. k8squad)│
-                    │  control plane,      │
-                    │  scheduling POLICY,  │
-                    │  telemetry spine,     │
-                    │  memory backends      │
-                    └─────────────────────┘
+```mermaid
+flowchart TB
+  A2A["A2A wire<br/>Task · Event · Status · AgentCard · ModelRoute"] --> ROUTER
+
+  subgraph MESH["MESH MODULE"]
+    direction TB
+    ROUTER["Router"] --> SEL["Route selection"]
+    SEL --> REG["Registry (endpoints)"]
+    GW["Per-pod Gateway<br/>lifecycle state machine · child-process substrate<br/>RuntimeAdapter (7 ops)"]
+    CRD["apis/mesh/v1alpha1<br/>MeshPool / MeshRoute / MeshTelemetry<br/>(CRD contracts, no controller)"]
+  end
+
+  MESH -->|implements| HOST["HOST (e.g. k8squad)<br/>control plane · scheduling POLICY<br/>telemetry spine · memory backends"]
 ```
 
 ## The RuntimeAdapter 7-op contract
