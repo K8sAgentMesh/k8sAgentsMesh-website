@@ -4,12 +4,15 @@
 // `/concepts/**` and `/community/**`.
 // Content-complete build (ISI-6047): hero, feature grid, how-it-works strip
 // (Gateway → Route → Memory), hosts section, GitHub CTA.
-// ISI-6463: the hero carries an animated SVG concept diagram (task in,
-// events back), reduced-motion safe; the Blog nav link is gone with the
-// blog itself.
+// ISI-6463 + ISI-6509: the hero shows the brand mark and an animated
+// concept diagram (src/components/ConceptDiagram.astro — CSS-only motion,
+// reduced-motion safe); the Blog nav link is gone with the blog itself.
 // Dark-mode-first; tokens come from brand/tokens/tokens.css.
 import logoDark from '../../brand/logos/k8sagentmesh-lockup-horizontal.svg';
 import logoLight from '../../brand/logos/k8sagentmesh-lockup-mono-dark.svg';
+import logoMarkDark from '../../brand/logos/k8sagentmesh-mark.svg';
+import logoMarkLight from '../../brand/logos/k8sagentmesh-mark-mono-dark.svg';
+import ConceptDiagram from '../components/ConceptDiagram.astro';
 
 const BASE = import.meta.env.BASE_URL;
 const GITHUB_URL = 'https://github.com/K8sAgentMesh/K8sAgentMesh';
@@ -182,14 +185,29 @@ const FEATURES = [
         width: auto;
         display: block;
       }
+      /* Hero mark: the brand logo on the main page (ISI-6509). Theme-aware
+       * pair like the header lockup; exactly one variant is rendered at a
+       * time (the other is display:none), and both carry the same alt text
+       * so assistive tech always sees exactly one named logo. Never
+       * recolored or animated (brand guide §3). */
+      .hero-logo {
+        height: 6.5rem;
+        width: auto;
+        display: block;
+        margin: 0 auto var(--mesh-space-5);
+      }
       /* The lockup is theme-aware: full-color on the dark header, monochrome
        * dark on light surfaces (brand guide §1). One is always display:none,
-       * so assistive tech sees exactly one logo. */
+       * so assistive tech sees exactly one logo. The hero mark follows the
+       * same pair pattern. */
       html[data-theme='dark'] .brand .logo-light,
-      html:not([data-theme='light']) .brand .logo-light {
+      html:not([data-theme='light']) .brand .logo-light,
+      html[data-theme='dark'] .hero-logo.logo-light,
+      html:not([data-theme='light']) .hero-logo.logo-light {
         display: none;
       }
-      html[data-theme='light'] .brand .logo-dark {
+      html[data-theme='light'] .brand .logo-dark,
+      html[data-theme='light'] .hero-logo.logo-dark {
         display: none;
       }
       .nav-links {
@@ -307,40 +325,26 @@ const FEATURES = [
         text-decoration: none;
       }
 
-      /* ---- Concept diagram (ISI-6463) ----
-       * Self-contained navy surface (same rule as the Mermaid shapes):
-       * reads identically on the light and dark canvases. Packets are SMIL
-       * animateMotion dots; prefers-reduced-motion freezes the stream. */
+      /* ---- Concept band (diagram + animation, ISI-6509) ---- */
       .concept {
-        margin: var(--mesh-space-7) auto 0;
-        max-width: 46rem;
-        border: 1px solid var(--mesh-neutral-2);
-        border-radius: var(--mesh-radius-lg);
-        padding: var(--mesh-space-3) var(--mesh-space-2) var(--mesh-space-4);
-        text-align: left;
+        padding: var(--mesh-space-8) 0;
       }
-      .concept svg {
-        display: block;
-        width: 100%;
-        height: auto;
-      }
-      .concept svg text {
-        font-family: var(--mesh-font-body);
-      }
-      .concept figcaption {
-        font-size: 0.85rem;
-        color: var(--mesh-neutral-5);
-        padding: var(--mesh-space-2) var(--mesh-space-3) 0;
+      .concept-intro {
         text-align: center;
-        margin: 0;
+        font-size: 1.05rem;
+        color: var(--mesh-neutral-5);
+        max-width: 52ch;
+        margin: calc(-1 * var(--mesh-space-4)) auto var(--mesh-space-5);
       }
-      html[data-theme='light'] .concept {
-        border-color: #e2e8f2;
+      .concept-caption {
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--mesh-neutral-5);
+        max-width: 62ch;
+        margin: 0 auto;
       }
-      @media (prefers-reduced-motion: reduce) {
-        .concept .pkt {
-          display: none;
-        }
+      .concept-caption a {
+        white-space: nowrap;
       }
 
       section h2 {
@@ -496,6 +500,8 @@ const FEATURES = [
       }
       html[data-theme='light'] .nav-links a,
       html[data-theme='light'] .lede,
+      html[data-theme='light'] .concept-intro,
+      html[data-theme='light'] .concept-caption,
       html[data-theme='light'] .card p,
       html[data-theme='light'] .step p,
       html[data-theme='light'] .hosts .pane p {
@@ -602,6 +608,20 @@ const FEATURES = [
 
     <main id="main-content">
       <section class="hero wrap">
+        <img
+          class="hero-logo logo-dark"
+          src={logoMarkDark.src}
+          alt="K8sAgentMesh logo"
+          width="256"
+          height="256"
+        />
+        <img
+          class="hero-logo logo-light"
+          src={logoMarkLight.src}
+          alt="K8sAgentMesh logo"
+          width="256"
+          height="256"
+        />
         <span class="kicker">Protocol-first agent mesh</span>
         <h1>
           The <span class="accent">mesh layer</span> for agent teams on
@@ -616,193 +636,22 @@ const FEATURES = [
           <a class="btn btn-primary" href={GITHUB_URL}>View on GitHub</a>
           <a class="btn btn-ghost" href={`${BASE}docs/`}>Read the docs</a>
         </div>
+      </section>
 
-        <figure class="concept">
-          <svg
-            viewBox="0 0 900 320"
-            role="img"
-            aria-labelledby="concept-title concept-desc"
-          >
-            <title id="concept-title">K8sAgentMesh in one picture</title>
-            <desc id="concept-desc">
-              A task flows from your app into the K8sAgentMesh mesh — per-pod
-              gateway, router and registry, memory contract — out to standing
-              agents on any runtime, while NDJSON events flow back. Your host
-              platform plugs in behind the seams and keeps policy, identity,
-              and telemetry.
-            </desc>
-            <defs>
-              <marker
-                id="arr-teal"
-                viewBox="0 0 10 10"
-                refX="9"
-                refY="5"
-                markerWidth="7"
-                markerHeight="7"
-                orient="auto-start-reverse"
-              >
-                <path d="M0,0 L10,5 L0,10 z" fill="#2DD4BF"></path>
-              </marker>
-              <marker
-                id="arr-sky"
-                viewBox="0 0 10 10"
-                refX="9"
-                refY="5"
-                markerWidth="7"
-                markerHeight="7"
-                orient="auto-start-reverse"
-              >
-                <path d="M0,0 L10,5 L0,10 z" fill="#38BDF8"></path>
-              </marker>
-            </defs>
-
-            <!-- Containers first: the packets below slide behind the nodes
-                 they pass through, reading as "inside the pipeline". -->
-            <rect
-              x="230"
-              y="72"
-              width="440"
-              height="180"
-              rx="14"
-              fill="#0B1220"
-              stroke="#2DD4BF"
-              stroke-width="1.5"></rect>
-            <rect
-              x="710"
-              y="72"
-              width="174"
-              height="180"
-              rx="14"
-              fill="#111521"
-              stroke="#38BDF8"
-              stroke-width="1.5"
-              stroke-dasharray="6 4"></rect>
-            <rect
-              x="230"
-              y="6"
-              width="440"
-              height="42"
-              rx="10"
-              fill="#0B1220"
-              stroke="#4A556E"
-              stroke-width="1.2"
-              stroke-dasharray="6 4"></rect>
-            <rect
-              x="16"
-              y="110"
-              width="150"
-              height="76"
-              rx="10"
-              fill="#111521"
-              stroke="#38BDF8"
-              stroke-width="1.5"></rect>
-
-            <!-- Seam between host and mesh. -->
-            <line
-              x1="450"
-              y1="48"
-              x2="450"
-              y2="72"
-              stroke="#4A556E"
-              stroke-width="1.2"
-              stroke-dasharray="4 3"></line>
-
-            <!-- Task lane: your app -> mesh pipeline -> standing agents. -->
-            <line x1="230" y1="148" x2="670" y2="148" stroke="#2DD4BF" stroke-width="1.5"></line>
-            <line
-              x1="166"
-              y1="148"
-              x2="228"
-              y2="148"
-              stroke="#2DD4BF"
-              stroke-width="1.5"
-              marker-end="url(#arr-teal)"></line>
-            <line
-              x1="672"
-              y1="148"
-              x2="708"
-              y2="148"
-              stroke="#2DD4BF"
-              stroke-width="1.5"
-              marker-end="url(#arr-teal)"></line>
-
-            <!-- Event lane: agents -> back under everything -> your app. -->
-            <path
-              d="M797,252 L797,280 L91,280 L91,188"
-              fill="none"
-              stroke="#38BDF8"
-              stroke-width="1.5"
-              stroke-dasharray="5 4"
-              marker-end="url(#arr-sky)"></path>
-
-            <!-- Packets (frozen for prefers-reduced-motion via .pkt). -->
-            <circle class="pkt" cx="166" cy="148" r="5" fill="#7DE9FA">
-              <animateMotion
-                dur="3s"
-                repeatCount="indefinite"
-                path="M166,148 L706,148"></animateMotion>
-            </circle>
-            <circle class="pkt" cx="166" cy="148" r="5" fill="#7DE9FA" opacity="0.65">
-              <animateMotion
-                dur="3s"
-                begin="1.5s"
-                repeatCount="indefinite"
-                path="M166,148 L706,148"></animateMotion>
-            </circle>
-            <circle class="pkt" cx="797" cy="252" r="4.5" fill="#38BDF8">
-              <animateMotion
-                dur="3s"
-                begin="0.75s"
-                repeatCount="indefinite"
-                path="M797,252 L797,280 L91,280 L91,192"></animateMotion>
-            </circle>
-
-            <!-- Mesh pipeline nodes. -->
-            <rect x="261" y="116" width="110" height="56" rx="8" fill="#111521" stroke="#2DD4BF" stroke-width="1.2"></rect>
-            <rect x="395" y="116" width="110" height="56" rx="8" fill="#111521" stroke="#2DD4BF" stroke-width="1.2"></rect>
-            <rect x="529" y="116" width="110" height="56" rx="8" fill="#111521" stroke="#2DD4BF" stroke-width="1.2"></rect>
-
-            <!-- Runtime chips. -->
-            <rect x="726" y="116" width="142" height="34" rx="7" fill="#0B1220" stroke="#4A556E"></rect>
-            <rect x="726" y="160" width="142" height="34" rx="7" fill="#0B1220" stroke="#4A556E"></rect>
-            <rect x="726" y="204" width="142" height="34" rx="7" fill="#0B1220" stroke="#4A556E"></rect>
-
-            <!-- Labels. -->
-            <text x="450" y="32" text-anchor="middle" font-size="12" fill="#C4CCDE">
-              Your host platform — scheduling, identity, telemetry stay host-side
-            </text>
-            <text x="458" y="64" font-size="10" fill="#8B96AD">seams</text>
-            <text x="450" y="98" text-anchor="middle" font-size="13" fill="#7DE9FA" letter-spacing="0.5">
-              K8sAgentMesh — owns the mechanism
-            </text>
-            <text x="797" y="98" text-anchor="middle" font-size="13" fill="#7DE9FA" letter-spacing="0.5">
-              Standing agents
-            </text>
-            <text x="316" y="140" text-anchor="middle" font-size="13" font-weight="600" fill="#E8ECF5">Gateway</text>
-            <text x="316" y="157" text-anchor="middle" font-size="10.5" fill="#C4CCDE">per pod</text>
-            <text x="450" y="140" text-anchor="middle" font-size="13" font-weight="600" fill="#E8ECF5">Router</text>
-            <text x="450" y="157" text-anchor="middle" font-size="10.5" fill="#C4CCDE">+ Registry</text>
-            <text x="584" y="140" text-anchor="middle" font-size="13" font-weight="600" fill="#E8ECF5">Memory</text>
-            <text x="584" y="157" text-anchor="middle" font-size="10.5" fill="#C4CCDE">contract</text>
-            <text x="797" y="137" text-anchor="middle" font-size="11.5" fill="#E8ECF5">opencode — adapter #1</text>
-            <text x="797" y="181" text-anchor="middle" font-size="11.5" fill="#E8ECF5">codex — adapter #2</text>
-            <text x="797" y="225" text-anchor="middle" font-size="11.5" fill="#E8ECF5">your runtime — #3</text>
-            <text x="91" y="138" text-anchor="middle" font-size="14" font-weight="600" fill="#E8ECF5">Your app</text>
-            <text x="91" y="157" text-anchor="middle" font-size="11" fill="#C4CCDE">POST /task</text>
-            <text x="91" y="172" text-anchor="middle" font-size="11" fill="#C4CCDE">NDJSON out</text>
-            <text x="198" y="140" text-anchor="middle" font-size="10.5" fill="#8B96AD">task</text>
-            <text x="690" y="140" text-anchor="middle" font-size="10" fill="#8B96AD">7-op</text>
-            <text x="450" y="232" text-anchor="middle" font-size="11" fill="#8B96AD">
-              A2A wire — Task · Event · Status · AgentCard · ModelRoute
-            </text>
-            <text x="450" y="298" text-anchor="middle" font-size="11" fill="#8B96AD">NDJSON events</text>
-          </svg>
-          <figcaption>
-            One mesh, any host, any runtime: a task flows in through the
-            gateway, out to a standing agent, and the event stream flows back —
-            while your platform keeps its policy behind the seams.
-          </figcaption>
-        </figure>
+      <section class="concept wrap" id="architecture">
+        <h2>A seam, not a silo</h2>
+        <p class="concept-intro">
+          Pod gateways, a router, and a registry — wrapped around one small
+          contract.
+        </p>
+        <ConceptDiagram />
+        <p class="concept-caption">
+          The mesh owns mechanism — gateways, routing, lifecycle, registration
+          seams. Everything else is a host decision.
+          <a href={`${BASE}concepts/architecture/`}>
+            Read the architecture overview →
+          </a>
+        </p>
       </section>
 
       <section class="features wrap">

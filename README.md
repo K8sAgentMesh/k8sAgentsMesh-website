@@ -11,7 +11,7 @@ on Kubernetes.
 
 | Section | Where | What |
 | --- | --- | --- |
-| Home | `src/pages/index.astro` | Hero with animated concept diagram, feature grid, how-it-works, hosts section |
+| Home | `src/pages/index.astro` | Hero with logo, animated concept diagram, feature grid, how-it-works, hosts section |
 | Docs | `src/content/docs/docs/` | Overview, prerequisites, quickstart, host-integration guide |
 | Concepts | `src/content/docs/concepts/` | Architecture, lifecycle, scheduling, telemetry, memory, CRD contracts, hosts |
 | Community | `src/content/docs/community/` | Community index + contributing guide |
