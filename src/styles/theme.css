@@ -20,11 +20,14 @@
   --sl-color-accent: var(--mesh-brand-primary-strong);
   --sl-color-accent-high: #bdf0fa;
 
-  /* Dark-mode-first neutrals. */
+  /* Dark-mode-first neutrals. gray-3 carries small muted text (pagination,
+   * footer, edit links), so it maps to neutral-5 (6.5:1 on canvas) —
+   * neutral-4 (2.6:1) fails WCAG AA at those sizes and stays reserved for
+   * disabled/border uses via gray-4. */
   --sl-color-white: var(--mesh-neutral-7);
   --sl-color-gray-1: var(--mesh-neutral-6);
   --sl-color-gray-2: var(--mesh-neutral-5);
-  --sl-color-gray-3: var(--mesh-neutral-4);
+  --sl-color-gray-3: var(--mesh-neutral-5);
   --sl-color-gray-4: var(--mesh-neutral-3);
   --sl-color-gray-5: var(--mesh-neutral-2);
   --sl-color-gray-6: var(--mesh-neutral-1);
@@ -65,4 +68,30 @@
 :root[data-theme='light'] .expressive-code,
 :root[data-theme='light'] .expressive-code .ec-line {
   --ec-fig-bg: var(--mesh-neutral-0);
+}
+
+/* ---- Mermaid diagrams (astro-mermaid renders client-side) ----
+ * The brand palette is pinned via themeVariables in astro.config.mjs and
+ * follows the active theme automatically. These overrides only pin mermaid's
+ * few translucent/hard-coded remnants so every diagram stays legible on both
+ * the dark (primary) and light canvases. The generated SVG scopes its rules
+ * behind a per-diagram id, so !important is required to win. */
+
+/* Edge-label chips: mermaid renders them at 50% opacity; make them opaque so
+ * the light label text keeps full contrast on the navy chip in light mode. */
+.mermaid .edgeLabel .label rect,
+.mermaid .edgeLabel rect {
+  opacity: 1 !important;
+}
+
+/* Arrowheads follow the theme text color by default (dark gray / light
+ * gray); pin them to the brand line color, which is >=3:1 on both canvases. */
+.mermaid .arrowheadPath {
+  fill: #0e7490 !important;
+}
+
+/* mermaid's state-diagram template hard-codes `color: red` on edge labels
+ * (a commented-out interpolation upstream); keep brand text instead. */
+.mermaid .statediagram .edgeLabel {
+  color: #e8ecf5 !important;
 }

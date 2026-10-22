@@ -10,25 +10,25 @@ explicit and replayable from the mesh's point of view.
 
 ## States
 
-```text
-        spawn (cold)              idle → route accepted
-   ┌─────────────────┐        ┌──────────────────────┐
-   ▼                 ▼        ▼                      │
-┌─────┐  route ┌─────────┐  task done  ┌───────┐  long idle  ┌────────────┐
-│spawn├────────▶│  idle   ├────────────▶│active │────────────▶│ hibernated │
-└─────┘         └─────────┘             └───────┘              └────────────┘
-                    ▲                        │                       │
-                    │    recreate (envelope) │                       │ wake
-                    └──────────┌─────────────┘              (SIGCONT)│
-                               ▼                                       ▼
-                          ┌─────────┐  stop / churn             ┌──────────┐
-                          │ stopped │──────────────────────────▶│ (resumes)│
-                          └─────────┘   recreate-on-demand      └──────────┘
+```mermaid
+stateDiagram-v2
+  direction TB
+  [*] --> spawn
+  spawn --> idle: cold (pool boot)
+  idle --> active: route accepted
+  active --> idle: task done
+  idle --> hibernated: long idle · SIGSTOP (S4)
+  hibernated --> active: wake · SIGCONT
+  hibernated --> stopped: stop bound
+  idle --> stopped: stop bound (no run)
+  stopped --> idle: recreate from envelope (≤3 s)
 ```
 
 The gauge vocabulary is fixed at four states: `active`, `idle`, `hibernated`,
 `stopped`. Stopped slots stay counted — they are recreate-on-demand capacity,
-not a leak.
+not a leak. `spawn` is the entry path, not a gauge state: a fresh spawn lands
+in `idle` (routable immediately), and the two spawn sources are `cold` (pool
+boot) and `envelope` (recreate).
 
 ## Hibernation (S4)
 

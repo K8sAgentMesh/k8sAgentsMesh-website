@@ -5,6 +5,9 @@
 // Content-complete build (ISI-6047): hero, feature grid, how-it-works strip
 // (Gateway → Route → Memory), hosts section, GitHub CTA.
 // Dark-mode-first; tokens come from brand/tokens/tokens.css.
+import logoDark from '../../brand/logos/k8sagentmesh-lockup-horizontal.svg';
+import logoLight from '../../brand/logos/k8sagentmesh-lockup-mono-dark.svg';
+
 const BASE = import.meta.env.BASE_URL;
 const GITHUB_URL = 'https://github.com/K8sAgentMesh/K8sAgentMesh';
 const FEATURES = [
@@ -59,6 +62,19 @@ const FEATURES = [
     <meta name="color-scheme" content="dark light" />
     <title>K8sAgentMesh — the mesh layer for agent teams on Kubernetes</title>
     <link rel="icon" type="image/svg+xml" href={`${BASE}favicon.svg`} />
+    <script is:inline>
+      // Seed the theme before first paint, mirroring the Starlight docs pages:
+      // stored choice wins, else the OS preference. Dark is the brand default.
+      try {
+        var t = localStorage.getItem('starlight-theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light'
+            : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    </script>
     <style>
       @import '../../brand/tokens/tokens.css';
 
@@ -94,6 +110,31 @@ const FEATURES = [
         padding: 0 var(--mesh-space-5);
       }
 
+      /* ---- Skip link (a11y) ---- */
+      .skip-link {
+        position: absolute;
+        left: var(--mesh-space-4);
+        top: -100vh;
+        z-index: 100;
+        background: var(--mesh-brand-primary);
+        color: var(--mesh-neutral-0);
+        padding: var(--mesh-space-2) var(--mesh-space-4);
+        border-radius: var(--mesh-radius-md);
+        font-weight: 600;
+      }
+      .skip-link:focus {
+        top: var(--mesh-space-3);
+        text-decoration: none;
+      }
+
+      /* ---- Keyboard focus (a11y) ---- */
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--mesh-brand-primary-strong);
+        outline-offset: 2px;
+        border-radius: var(--mesh-radius-sm);
+      }
+
       /* ---- Header ---- */
       header {
         border-bottom: 1px solid var(--mesh-neutral-2);
@@ -107,17 +148,28 @@ const FEATURES = [
         max-width: 72rem;
         margin: 0 auto;
       }
-      .wordmark {
-        font-weight: 700;
-        font-size: 1.05rem;
-        color: var(--mesh-neutral-7);
-        letter-spacing: -0.01em;
+      .brand {
+        display: inline-flex;
+        align-items: center;
       }
-      .wordmark .mesh {
-        color: var(--mesh-brand-primary);
+      .brand-logo {
+        height: 1.75rem;
+        width: auto;
+        display: block;
+      }
+      /* The lockup is theme-aware: full-color on the dark header, monochrome
+       * dark on light surfaces (brand guide §1). One is always display:none,
+       * so assistive tech sees exactly one logo. */
+      html[data-theme='dark'] .brand .logo-light,
+      html:not([data-theme='light']) .brand .logo-light {
+        display: none;
+      }
+      html[data-theme='light'] .brand .logo-dark {
+        display: none;
       }
       .nav-links {
         display: flex;
+        align-items: center;
         gap: var(--mesh-space-5);
         font-size: 0.95rem;
       }
@@ -127,6 +179,37 @@ const FEATURES = [
       .nav-links a:hover {
         color: var(--mesh-neutral-7);
         text-decoration: none;
+      }
+
+      /* ---- Theme toggle (mirrors the Starlight docs pages) ---- */
+      .theme-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        padding: 0;
+        background: none;
+        border: 1px solid var(--mesh-neutral-3);
+        border-radius: var(--mesh-radius-md);
+        color: var(--mesh-neutral-5);
+        cursor: pointer;
+      }
+      .theme-toggle:hover {
+        color: var(--mesh-neutral-7);
+        border-color: var(--mesh-brand-primary);
+      }
+      .theme-toggle svg {
+        width: 1.1rem;
+        height: 1.1rem;
+      }
+      /* dark mode shows the sun (switch to light); light mode shows the moon */
+      html[data-theme='dark'] .theme-toggle .icon-moon,
+      html:not([data-theme='light']) .theme-toggle .icon-moon {
+        display: none;
+      }
+      html[data-theme='light'] .theme-toggle .icon-sun {
+        display: none;
       }
 
       /* ---- Hero ---- */
@@ -170,6 +253,10 @@ const FEATURES = [
         flex-wrap: wrap;
         justify-content: center;
         gap: var(--mesh-space-4);
+      }
+      .start-cta {
+        text-align: center;
+        margin: var(--mesh-space-6) 0 0;
       }
       .btn {
         display: inline-block;
@@ -309,7 +396,7 @@ const FEATURES = [
         margin-top: var(--mesh-space-8);
         padding: var(--mesh-space-6) 0;
         font-size: 0.9rem;
-        color: var(--mesh-neutral-4);
+        color: var(--mesh-neutral-5);
       }
       footer .wrap {
         display: flex;
@@ -318,47 +405,64 @@ const FEATURES = [
         justify-content: space-between;
       }
 
-      /* Light theme override for the standalone page. */
-      @media (prefers-color-scheme: light) {
-        html[data-theme='light'] {
-          background: #f6f8fc;
-          color: #38435c;
-        }
-        html[data-theme='light'] .wordmark,
-        html[data-theme='light'] h1,
-        html[data-theme='light'] section h2,
-        html[data-theme='light'] .card h3,
-        html[data-theme='light'] .step h3,
-        html[data-theme='light'] .hosts .pane h3,
-        html[data-theme='light'] .btn-ghost {
-          color: #10131c;
-        }
-        html[data-theme='light'] .card,
-        html[data-theme='light'] .step {
-          background: #ffffff;
-          border-color: #e2e8f2;
-        }
-        html[data-theme='light'] .card:hover {
-          border-color: #0f766e;
-        }
-        html[data-theme='light'] .hosts .pane {
-          background: #ffffff;
-          border-color: #e2e8f2;
-        }
-        html[data-theme='light'] .nav-links a,
-        html[data-theme='light'] .lede,
-        html[data-theme='light'] .card p,
-        html[data-theme='light'] .step p,
-        html[data-theme='light'] .hosts .pane p {
-          color: #5a6883;
-        }
-        html[data-theme='light'] .btn-primary {
-          background: #0f766e;
-          color: #ffffff;
-        }
-        html[data-theme='light'] .kicker {
-          color: #0e7490;
-        }
+      /* Light theme override for the standalone page. Keyed off the explicit
+       * data-theme (set from the stored choice or OS preference above), NOT a
+       * prefers-color-scheme media query — a user who picks light on a dark-OS
+       * machine must still get the light page. */
+      html[data-theme='light'] {
+        background: #f6f8fc;
+        color: #38435c;
+      }
+      html[data-theme='light'] h1,
+      html[data-theme='light'] section h2,
+      html[data-theme='light'] .card h3,
+      html[data-theme='light'] .step h3,
+      html[data-theme='light'] .hosts .pane h3,
+      html[data-theme='light'] .btn-ghost {
+        color: #10131c;
+      }
+      html[data-theme='light'] .card,
+      html[data-theme='light'] .step {
+        background: #ffffff;
+        border-color: #e2e8f2;
+      }
+      html[data-theme='light'] .card:hover {
+        border-color: #0f766e;
+      }
+      html[data-theme='light'] .hosts .pane {
+        background: #ffffff;
+        border-color: #e2e8f2;
+      }
+      html[data-theme='light'] .nav-links a,
+      html[data-theme='light'] .lede,
+      html[data-theme='light'] .card p,
+      html[data-theme='light'] .step p,
+      html[data-theme='light'] .hosts .pane p {
+        color: #5a6883;
+      }
+      /* Links: raw compass teal fails AA on the light canvas (1.75:1); use
+       * the text-safe teal-700, matching the docs' light accent. */
+      html[data-theme='light'] a {
+        color: #0f766e;
+      }
+      html[data-theme='light'] .btn-primary {
+        background: #0f766e;
+        color: #ffffff;
+      }
+      html[data-theme='light'] .kicker {
+        color: #0e7490;
+      }
+      html[data-theme='light'] .theme-toggle {
+        color: #5a6883;
+        border-color: #e2e8f2;
+      }
+      html[data-theme='light'] .theme-toggle:hover {
+        color: #10131c;
+        border-color: #0f766e;
+      }
+      html[data-theme='light'] a:focus-visible,
+      html[data-theme='light'] button:focus-visible {
+        outline-color: #0f766e;
       }
 
       /* Responsive: stack grids under ~48rem. */
@@ -375,10 +479,24 @@ const FEATURES = [
     </style>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <header>
       <nav class="nav">
-        <a class="wordmark" href={`${BASE}`}>
-          K8sAgent<span class="mesh">Mesh</span>
+        <a class="brand" href={`${BASE}`} aria-label="K8sAgentMesh — home">
+          <img
+            class="brand-logo logo-dark"
+            src={logoDark.src}
+            alt=""
+            width="618"
+            height="128"
+          />
+          <img
+            class="brand-logo logo-light"
+            src={logoLight.src}
+            alt=""
+            width="618"
+            height="128"
+          />
         </a>
         <div class="nav-links">
           <a href={`${BASE}docs/`}>Docs</a>
@@ -386,11 +504,43 @@ const FEATURES = [
           <a href={`${BASE}blog/`}>Blog</a>
           <a href={`${BASE}community/`}>Community</a>
           <a href={GITHUB_URL}>GitHub</a>
+          <button
+            class="theme-toggle"
+            type="button"
+            aria-label="Toggle color theme"
+            title="Toggle color theme"
+          >
+            <svg
+              class="icon-sun"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32 1.41-1.41" />
+            </svg>
+            <svg
+              class="icon-moon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+            </svg>
+          </button>
         </div>
       </nav>
     </header>
 
-    <main>
+    <main id="main-content">
       <section class="hero wrap">
         <span class="kicker">Protocol-first agent mesh</span>
         <h1>
@@ -473,6 +623,41 @@ const FEATURES = [
           </p>
         </div>
       </section>
+
+      <section class="how wrap">
+        <h2>Get started in three steps</h2>
+        <div class="strip">
+          <div class="step">
+            <span class="num">01</span>
+            <h3>Create a cluster</h3>
+            <p>
+              Spin up a fresh kind cluster — the quickstart's zero-host-project
+              path needs nothing but a container runtime.
+            </p>
+          </div>
+          <div class="step">
+            <span class="num">02</span>
+            <h3>Install the chart</h3>
+            <p>
+              One helm install of the vanilla chart — no host project, no
+              dependencies, fully independent.
+            </p>
+          </div>
+          <div class="step">
+            <span class="num">03</span>
+            <h3>Run your first task</h3>
+            <p>
+              POST a task to the gateway and watch the A2A NDJSON event stream
+              settle to a terminal state.
+            </p>
+          </div>
+        </div>
+        <p class="start-cta">
+          <a class="btn btn-primary" href={`${BASE}docs/quickstart/`}>
+            Open the quickstart
+          </a>
+        </p>
+      </section>
     </main>
 
     <footer>
@@ -486,5 +671,23 @@ const FEATURES = [
         >
       </div>
     </footer>
+    <script is:inline>
+      // Theme toggle: flips data-theme and persists the choice under the same
+      // key the Starlight docs pages use, so the preference follows the visitor.
+      (function () {
+        var btn = document.querySelector('.theme-toggle');
+        if (!btn) return;
+        btn.addEventListener('click', function () {
+          var next =
+            document.documentElement.getAttribute('data-theme') === 'light'
+              ? 'dark'
+              : 'light';
+          document.documentElement.setAttribute('data-theme', next);
+          try {
+            localStorage.setItem('starlight-theme', next);
+          } catch (e) {}
+        });
+      })();
+    </script>
   </body>
 </html>
