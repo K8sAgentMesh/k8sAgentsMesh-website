@@ -108,7 +108,7 @@ export default defineConfig({
           content:
             "try{if(localStorage.getItem('starlight-theme')===null){localStorage.setItem('starlight-theme','dark');document.documentElement.setAttribute('data-theme','dark');}}catch(e){}",
         },
-        // Default social image for every docs/concepts/blog/community page
+        // Default social image for every docs/concepts/community page
         // (ISI-6417). Starlight already emits per-page og:title/og:description
         // from frontmatter; these supply the shared banner + site identity.
         {
@@ -159,10 +159,7 @@ export default defineConfig({
       sidebar: [
         {
           label: 'What is K8sAgentMesh?',
-          items: [
-            { label: 'Overview', link: '/docs/' },
-            { label: 'Roadmap', link: '/docs/roadmap' },
-          ],
+          items: [{ label: 'Overview', link: '/docs/' }],
         },
         {
           label: 'Architecture',
@@ -197,10 +194,6 @@ export default defineConfig({
         {
           label: 'Reference',
           items: [{ label: 'Reference index', link: '/docs/reference' }],
-        },
-        {
-          label: 'Blog & changelog',
-          autogenerate: { directory: 'blog' },
         },
         { label: 'Community', link: '/community/' },
         { label: 'Contributing', link: '/community/contributing' },
