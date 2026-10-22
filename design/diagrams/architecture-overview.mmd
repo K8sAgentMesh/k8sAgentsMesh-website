@@ -1,0 +1,21 @@
+%% Landing Architecture band diagram (P3, ISI-6416).
+%% Renders through astro-mermaid with the site MERMAID_THEME_VARIABLES —
+%% no per-diagram overrides (visual-design-spec §7). Sized for mobile:
+%% 4 top-level nodes, labels ≤ 4 words. Vocabulary matches
+%% /concepts/architecture/ verbatim.
+flowchart LR
+  A2A["A2A wire<br/>Task · Event · Status<br/>AgentCard · ModelRoute"]
+
+  subgraph MESH["MESH MODULE — owns mechanism"]
+    direction TB
+    ROUTER["Router"]
+    REG["Registry<br/>endpoints"]
+    GW["Per-pod Gateway<br/>RuntimeAdapter — 7 ops"]
+    ROUTER --> REG
+    ROUTER --> GW
+  end
+
+  HOST["HOST, e.g. k8squad<br/>policy · telemetry · memory"]
+
+  A2A --> ROUTER
+  MESH -.->|seams| HOST

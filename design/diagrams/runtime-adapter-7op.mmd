@@ -1,0 +1,8 @@
+%% Fallback/compact visual: the RuntimeAdapter 7-op contract as a horizontal
+%% strip (P3, ISI-6416). Use if architecture-overview.mmd ever renders too
+%% wide at small viewports, or in docs/social contexts. Order matches
+%% /concepts/architecture/#the-runtimeadapter-7-op-contract.
+flowchart LR
+  RA["RuntimeAdapter"]
+  S1["1 Spawn"] --> S2["2 Register"] --> S3["3 Route"] --> S4["4 Hibernate"] --> S5["5 Wake"] --> S6["6 Stop"] --> S7["7 Recreate"]
+  RA --- S1
