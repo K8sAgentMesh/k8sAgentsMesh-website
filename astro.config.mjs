@@ -108,6 +108,49 @@ export default defineConfig({
           content:
             "try{if(localStorage.getItem('starlight-theme')===null){localStorage.setItem('starlight-theme','dark');document.documentElement.setAttribute('data-theme','dark');}}catch(e){}",
         },
+        // Default social image for every docs/concepts/blog/community page
+        // (ISI-6417). Starlight already emits per-page og:title/og:description
+        // from frontmatter; these supply the shared banner + site identity.
+        {
+          tag: 'meta',
+          attrs: { property: 'og:site_name', content: 'K8sAgentMesh' },
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            property: 'og:image',
+            content:
+              'https://k8sagentmesh.github.io/k8sAgentsMesh-website/banner.png',
+          },
+        },
+        {
+          tag: 'meta',
+          attrs: { property: 'og:image:width', content: '1200' },
+        },
+        {
+          tag: 'meta',
+          attrs: { property: 'og:image:height', content: '630' },
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            property: 'og:image:alt',
+            content:
+              'K8sAgentMesh — the mesh layer for agent teams on Kubernetes',
+          },
+        },
+        {
+          tag: 'meta',
+          attrs: { name: 'twitter:card', content: 'summary_large_image' },
+        },
+        {
+          tag: 'meta',
+          attrs: {
+            name: 'twitter:image',
+            content:
+              'https://k8sagentmesh.github.io/k8sAgentsMesh-website/banner.png',
+          },
+        },
       ],
       // Nav skeleton (P0, ISI-6413): the six doc sections from the ISI-6394
       // plan (rev 3). P1 (ISI-6414) fills What is / Architecture / Getting
