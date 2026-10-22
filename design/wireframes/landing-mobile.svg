@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="2300" viewBox="0 0 390 2300" font-family="'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace">
+  <!-- K8sAgentMesh landing — mobile wireframe (<48rem). P3 / ISI-6416.
+       All bands stack single-column; nav links compress to 0.9rem. -->
+  <rect width="390" height="2300" fill="#0B1220"/>
+  <defs>
+    <style>
+      .box{fill:#111521;stroke:#2A3247;stroke-width:1.5}
+      .boxacc{fill:#111521;stroke:#2DD4BF;stroke-width:1.5}
+      .hair{stroke:#2A3247;stroke-width:1}
+      .lbl{fill:#8B96AD;font-size:11px}
+      .hd{fill:#C4CCDE;font-size:13px;font-weight:600}
+      .t{fill:#7DE9FA;font-size:11px}
+      .anno{fill:#2DD4BF;font-size:10px}
+      .h1{fill:#E8ECF5;font-size:16px;font-weight:600}
+    </style>
+  </defs>
+
+  <!-- HEADER -->
+  <rect x="0" y="0" width="390" height="56" class="box" rx="0"/>
+  <rect x="16" y="18" width="120" height="20" class="boxacc" rx="4"/>
+  <text x="16" y="48" class="anno">1 — lockup + compressed nav + theme toggle (no hamburger)</text>
+  <text x="150" y="34" class="t" font-size="10">Docs·Concepts·Blog·…·[◐]</text>
+
+  <!-- HERO -->
+  <rect x="16" y="80" width="358" height="270" class="box" rx="8"/>
+  <text x="20" y="96" class="anno">2</text>
+  <rect x="105" y="104" width="180" height="22" class="boxacc" rx="11"/>
+  <text x="135" y="119" class="t">kicker pill</text>
+  <text x="195" y="156" text-anchor="middle" class="h1">H1 value prop</text>
+  <text x="195" y="178" text-anchor="middle" class="h1">(max 21ch, clamp 2.1rem)</text>
+  <text x="195" y="212" text-anchor="middle" class="lbl">lede</text>
+  <rect x="105" y="240" width="180" height="40" class="boxacc" rx="8"/>
+  <text x="195" y="265" text-anchor="middle" class="t">CTA: GitHub</text>
+  <rect x="105" y="292" width="180" height="40" class="box" rx="8"/>
+  <text x="195" y="317" text-anchor="middle" class="lbl">CTA: Getting Started</text>
+
+  <!-- ARCHITECTURE -->
+  <rect x="16" y="380" width="358" height="640" class="box" rx="8"/>
+  <text x="20" y="396" class="anno">3</text>
+  <text x="195" y="420" text-anchor="middle" class="hd">H2 — Architecture</text>
+  <rect x="32" y="444" width="326" height="320" fill="#0B1220" stroke="#2DD4BF" stroke-width="2" stroke-dasharray="6 4" rx="8"/>
+  <text x="195" y="590" text-anchor="middle" class="t">MERMAID diagram</text>
+  <text x="195" y="610" text-anchor="middle" class="lbl">full-width, source sized</text>
+  <text x="195" y="628" text-anchor="middle" class="lbl">to avoid h-scroll</text>
+  <rect x="32" y="788" width="326" height="100" class="box" rx="8"/>
+  <text x="48" y="816" class="hd">Card A — 7-op contract</text>
+  <text x="48" y="840" class="t">→ /concepts/architecture/</text>
+  <rect x="32" y="904" width="326" height="100" class="box" rx="8"/>
+  <text x="48" y="932" class="hd">Card B — Hosts, not owners</text>
+  <text x="48" y="956" class="t">→ /concepts/hosts/</text>
+
+  <!-- HOW TO USE -->
+  <rect x="16" y="1050" width="358" height="500" class="box" rx="8"/>
+  <text x="20" y="1066" class="anno">4</text>
+  <text x="195" y="1090" text-anchor="middle" class="hd">H2 — How to use</text>
+  <rect x="32" y="1114" width="326" height="96" class="box" rx="8"/>
+  <text x="48" y="1142" class="t">01</text><text x="48" y="1166" class="hd">Create a cluster</text>
+  <rect x="32" y="1226" width="326" height="96" class="box" rx="8"/>
+  <text x="48" y="1254" class="t">02</text><text x="48" y="1278" class="hd">Install the chart</text>
+  <rect x="32" y="1338" width="326" height="96" class="box" rx="8"/>
+  <text x="48" y="1366" class="t">03</text><text x="48" y="1390" class="hd">Run your first task</text>
+  <rect x="95" y="1460" width="200" height="40" class="boxacc" rx="8"/>
+  <text x="195" y="1485" text-anchor="middle" class="t">CTA: Open the quickstart</text>
+
+  <!-- WHY -->
+  <rect x="16" y="1580" width="358" height="620" class="box" rx="8"/>
+  <text x="20" y="1596" class="anno">5</text>
+  <text x="195" y="1620" text-anchor="middle" class="hd">H2 — What the mesh gives you</text>
+  <g>
+    <rect x="32" y="1644" width="326" height="80" class="box" rx="8"/>
+    <text x="48" y="1670" class="t">01</text><text x="48" y="1692" class="hd">Runtime-agnostic seam</text>
+    <rect x="32" y="1736" width="326" height="80" class="box" rx="8"/>
+    <text x="48" y="1762" class="t">02</text><text x="48" y="1784" class="hd">Per-pod gateways</text>
+    <rect x="32" y="1828" width="326" height="80" class="box" rx="8"/>
+    <text x="48" y="1854" class="t">03</text><text x="48" y="1876" class="hd">A2A wire types</text>
+    <rect x="32" y="1920" width="326" height="80" class="box" rx="8"/>
+    <text x="48" y="1946" class="t">04</text><text x="48" y="1968" class="hd">Lifecycle events</text>
+    <rect x="32" y="2012" width="326" height="80" class="box" rx="8"/>
+    <text x="48" y="2038" class="t">05</text><text x="48" y="2060" class="hd">Scheduling as policy</text>
+    <rect x="32" y="2104" width="326" height="80" class="box" rx="8"/>
+    <text x="48" y="2130" class="t">06</text><text x="48" y="2152" class="hd">Temporal memory contract</text>
+  </g>
+
+  <!-- FOOTER -->
+  <line x1="0" y1="2230" x2="390" y2="2230" class="hair"/>
+  <text x="16" y="2262" class="lbl">Apache-2.0 — K8sAgentMesh Authors</text>
+  <text x="16" y="2284" class="lbl">Staging ↗ · GitHub ↗</text>
+  <text x="360" y="2262" class="anno">6</text>
+</svg>
