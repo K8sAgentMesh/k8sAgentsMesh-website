@@ -109,15 +109,51 @@ export default defineConfig({
             "try{if(localStorage.getItem('starlight-theme')===null){localStorage.setItem('starlight-theme','dark');document.documentElement.setAttribute('data-theme','dark');}}catch(e){}",
         },
       ],
+      // Nav skeleton (P0, ISI-6413): the six doc sections from the ISI-6394
+      // plan (rev 3). P1 (ISI-6414) fills What is / Architecture / Getting
+      // started; P2 (ISI-6415) fills Using runtimes / CRD reference /
+      // Reference. Stub pages are placeholders until then.
       sidebar: [
-        { label: 'Overview', link: '/docs/' },
-        { label: 'Quickstart', link: '/docs/quickstart' },
-        { label: 'Prerequisites', link: '/docs/prerequisites' },
-        { label: 'Roadmap', link: '/docs/roadmap' },
-        { label: 'Host integration', link: '/docs/host-integration' },
         {
-          label: 'Concepts',
-          autogenerate: { directory: 'concepts' },
+          label: 'What is K8sAgentMesh?',
+          items: [
+            { label: 'Overview', link: '/docs/' },
+            { label: 'Roadmap', link: '/docs/roadmap' },
+          ],
+        },
+        {
+          label: 'Architecture',
+          items: [
+            { label: 'Architecture overview', link: '/concepts/architecture' },
+            { label: 'Agent lifecycle', link: '/concepts/lifecycle' },
+            { label: 'Memory', link: '/concepts/memory' },
+            { label: 'Scheduling', link: '/concepts/scheduling' },
+            { label: 'Hosts', link: '/concepts/hosts' },
+            { label: 'Telemetry', link: '/concepts/telemetry' },
+          ],
+        },
+        {
+          label: 'Getting started',
+          items: [
+            { label: 'Prerequisites', link: '/docs/prerequisites' },
+            { label: 'Quickstart', link: '/docs/quickstart' },
+            { label: 'Host integration', link: '/docs/host-integration' },
+          ],
+        },
+        {
+          label: 'Using runtimes',
+          items: [{ label: 'Using runtimes', link: '/docs/using-runtimes' }],
+        },
+        {
+          label: 'CRD reference',
+          items: [
+            { label: 'CRD contracts', link: '/concepts/crds' },
+            { label: 'MeshPool / MeshRoute / MeshTelemetry', link: '/docs/crd-reference' },
+          ],
+        },
+        {
+          label: 'Reference',
+          items: [{ label: 'Reference index', link: '/docs/reference' }],
         },
         {
           label: 'Blog & changelog',
