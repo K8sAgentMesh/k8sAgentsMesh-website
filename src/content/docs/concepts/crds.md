@@ -14,6 +14,31 @@ A CRD is mesh-owned **iff** all three hold:
 2. it is host-reference-free,
 3. it is mechanism, not policy.
 
+## The tier map
+
+```mermaid
+flowchart TB
+  subgraph MODULE["K8sAgentMesh module"]
+    direction TB
+    subgraph TIERA["Tier A — mesh-owned CRDs (apis/mesh/v1alpha1)"]
+      direction LR
+      MeshPool["MeshPool<br/>standing band · saturation<br/>lifecycle knobs · heartbeat/TTL"]
+      MeshRoute["MeshRoute<br/>selection · recreate SLO · fallback"]
+      MeshTelemetry["MeshTelemetry<br/>per-event emission · none or otel"]
+    end
+    subgraph TIERB["Tier B — Go contract types, not CRDs"]
+      direction LR
+      MeshEndpoint["MeshEndpoint<br/>P3.4 Registry record"]
+      Events["lifecycle-event schema<br/>mesh/EVENTS.md"]
+    end
+  end
+  subgraph TIERC["Tier C — host side, never mesh-owned"]
+    Host["identity CRDs · scheduling policy config<br/>OtelConfig spine · coord.* guards<br/>rollout flags · MemKeys"]
+  end
+  TIERB -->|"shapes derive from the proven seams"| TIERA
+  TIERC -.->|"projects onto (RolePool into MeshPool via P3.5)"| TIERA
+```
+
 ## Tier A — shipped in the module (`apis/mesh/v1alpha1`)
 
 | CRD            | Owns                                                                                                   |
