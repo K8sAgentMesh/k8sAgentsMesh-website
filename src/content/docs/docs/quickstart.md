@@ -77,6 +77,45 @@ That's the whole loop: **one `POST /task` in, a stream of A2A events out.** If
 the stream ends without a terminal state, treat it as a transport failure and
 retry.
 
+### The round trip, as a sequence
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant C as curl (you)
+    participant G as gateway (svc 8080)
+    participant A as standing agent (idle)
+
+    C->>G: POST /task — A2A envelope, Accept application/x-ndjson
+    G->>A: route — select an idle endpoint (wake if hibernated)
+    activate A
+    A-->>G: accepted — task state working
+    G-->>C: status event (seq 1, working)
+    G-->>C: message event (seq 2, agent reply)
+    A-->>G: run complete — terminal state
+    deactivate A
+    G-->>C: status event (seq 3, completed) — stream closes
+    Note over G,C: the stream closes exactly once, on a terminal state — completed, failed, or canceled
+```
+
+### Prove the independence
+
+The install above is the mesh alone — no host project attached. Three
+one-line proofs from the repo root:
+
+```sh
+# 1. the chart is dependency-free: no host chart, no subcharts pulled
+grep -A1 '^dependencies:' deploy/helm/k8sagentmesh/Chart.yaml || echo "no dependencies block"
+
+# 2. extraction-clean: no host import anywhere in the module
+#    (the same guard runs in CI as hack/extraction-clean.sh)
+grep -ri 'k8squad/k8squad' --include='*.go' . || echo "extraction-clean"
+
+# 3. only mesh-group CRDs were applied to your cluster
+kubectl api-resources --api-group=mesh.k8sagentmesh.io
+```
+
+
 ## 3. Tear down
 
 ```sh

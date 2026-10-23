@@ -21,6 +21,20 @@ self-orchestrating agent teams.**
 See [Concepts — Architecture](/concepts/architecture/) for the shape of each
 surface.
 
+## The problem it solves
+
+Running **standing AI coding agents** on Kubernetes keeps re-creating the same
+machinery: how agents discover each other, how a task reaches one of them,
+what happens to the team when a pod churns mid-run, and where team memory
+lives when every process is ephemeral. Building that machinery into one
+platform or one agent runtime locks both in: swap the runtime, rebuild the
+control plane.
+
+K8sAgentMesh extracts the seam once — **protocol-first and
+runtime-agnostic** — so a host plugs in as policy (scheduling, identity,
+telemetry spine, memory backends) and a new runtime is just another adapter
+against the same seven operations.
+
 ## Hosts, not owners
 
 K8sAgentMesh is host-agnostic by design. **k8squad is host #1** (the reference
