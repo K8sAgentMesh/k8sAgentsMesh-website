@@ -1,64 +1,74 @@
-# K8sAgentMesh Brand Guide
+# K8sAgentMesh Brand Guide — Viking North-Cross Constellation Compass
 
-Direction **B — Agent Constellation**, accepted by the board on [ISI-6042] decision card `cc83324a` (2026-10-16). Produced by the brand identity kit, [ISI-6046].
+Board-locked direction (2026-10-17; kit approval card `ba1755b0`). This is the
+synced copy for the website repo — the canonical original lives at
+`branding/logo/brand-guide.md` in the agentMesh repo; re-sync from there when
+the kit changes. It supersedes the earlier **Agent Constellation** guide
+(2026-10-16, decision card `cc83324a`): the logo suite, palette and usage
+rules below describe the selected logo only.
 
-- Lead glyph: **B2 Hub Constellation** — a hub node with a gateway ring, two agents orbiting on a dotted route orbit, and k8s-blue routes descending to the hub. The two descending routes carry the **B1 "Constellation M"** silhouette: the routes plus the orbit arc above them read as an `M` at small sizes.
-- **Viking compass at the hub (v4)** — per the board's inspiration image (an 8-armed compass medallion on navy): the hub is an **eight-point compass rose** — four long kite rays at the cardinals, four short rays at the diagonals, a core circle, framed by a thin **medallion ring**. It carries the cloud-native nautical lineage (kubernetes = helmsman, istio = sail, harbor = port) in one clean symbol, and stays on the constellation story: the Northern Cross is itself a constellation. The dotted orbit keeps its **four cardinal compass ticks**, aligned with the long rays.
-- Supporting languages: **C — Gateway Geometry** (double-ring rounded rectangles for gateways) governs architecture diagrams; **A — Mesh Lattice** is demoted to a subtle background texture (hairline grid, ≤45% opacity, never a foreground element).
-- Semantics are fixed: **k8s-blue = routes**, **route-teal = edges/agents**, **A2A-green = signals**, near-white = the hub/control plane.
+## 1. Concept
 
-## 1. Logo suite
+A navigation compass whose cross rays ARE the mesh edges: they connect four
+agent-bots at the cardinal points, secondary agent-stars on the diagonals, and
+a bright hub core — a mesh of agents navigating together. The
+nautical/cloud-native lineage (Kubernetes = helmsman; Helm, Harbor, Tiller) is
+carried by the compass and the sail-hint arcs, with no literal boat.
 
-All sources live in `brand/logos/` (SVG + PNG exports). Wordmarks are exact vector outlines (no font dependency for viewers).
+## 2. Logo suite
+
+All sources live in `brand/logos/` (SVG + PNG exports). The suite is synced
+from the locked kit (`branding/logo/` in the agentMesh repo); the display assets
+`k8sagentmesh-mark-navy-512.png`, `k8sagentmesh-avatar-512.png` and
+`k8sagentmesh-favicon-32.png` are byte-identical to the K8sAgentMesh repo
+`brand/logo.png`, `brand/avatar.png` and `brand/favicon.png` rollout assets.
+Wordmarks are exact vector outlines (no font dependency for viewers).
 
 | Asset | File | Use |
 |---|---|---|
-| Primary mark (full color) | `logos/k8sagentmesh-mark.svg` + `-512/-256.png` | Hero surfaces on dark backgrounds |
-| Mark on navy tile | `logos/k8sagentmesh-mark-navy.svg` + `-1024/-512.png` | Cards, social tiles |
+| Primary mark (full color) | `logos/k8sagentmesh-mark.svg` + `-512/-256.png` | Hero surfaces on dark backgrounds (transparent bg) |
+| Mark on navy tile | `logos/k8sagentmesh-mark-navy.svg` + `-1024/-512.png` | Cards, social tiles — the selected master as shipped |
 | Monochrome light | `logos/k8sagentmesh-mark-mono-light.svg` + `-512.png` | One-color on dark surfaces (engraved, print, single-hue UI) |
 | Monochrome dark | `logos/k8sagentmesh-mark-mono-dark.svg` + `-512.png` | One-color on light surfaces |
-| Horizontal lockup | `logos/k8sagentmesh-lockup-horizontal.svg` (+ mono light/dark) | Site header, docs, README |
+| Horizontal lockup | `logos/k8sagentmesh-lockup-horizontal.svg` (+ mono light/dark, + `-1600.png`) | Site header, docs, README |
 | GitHub org avatar | `logos/k8sagentmesh-avatar.svg` + `-512/-256/-128.png` | Org avatar — content sits inside a circle-safe zone, survives circle/square crops |
-| Favicon | `logos/k8sagentmesh-favicon.svg` + `-64/-32/-16.png` | Browser tab; simplified viking compass + two agents, verified legible at 16px |
+| Favicon | `logos/k8sagentmesh-favicon.svg` + `-64/-32/-16.png` | Browser tab; simplified cross + hub core + bots, verified legible at 16px |
 
-Construction (256 design units): hub = viking compass at (128,148) — 4 long kite rays to r=38 (half-width 10.1 at the core) at the cardinals, 4 short rays to r=26 (half-width 6.75) at the diagonals, core circle r=13, medallion ring r=44 at 2.5 stroke; agents r=14 at (64,78) and (192,78); orbit r≈94.85 dotted (dash `0.1 8.5`) with 4 cardinal compass ticks (half-length 5); routes stroke 8, terminating at the core edge; signals r=6 and r=4.5 on the routes. The favicon draws the compass bolder (long rays to 14, short to 9, core 5) so it still resolves at 16px.
+`public/favicon.svg` is a copy of `logos/k8sagentmesh-favicon.svg` — update
+both when the favicon changes.
 
-## 2. Clear space and minimum sizes
+## 3. Palette (locked)
 
-- **Clear space:** keep at least one hub-node diameter (56/256 of mark height; ~22% of the mark's height) free on all sides of the mark or lockup. Nothing enters this zone — no type, no UI, no other logos.
-- **Minimum sizes:** primary mark 24px; horizontal lockup 120px wide; favicon 16px; avatar 128px. Below these, switch to the simplified favicon glyph (hub + two agents).
-- **Quality gates met:** one-color lockups (mono light/dark), 16px favicon legibility verified by pixel census (hub, both agents, and routes resolve at 16px and 32px), minimum white space around the hub enforced by the clear-space rule.
+- Background radial gradient: `#101B30` (focus, center-up) → `#0B1220` → `#070D17`
+- Primary gradient (rays, bot strokes): `#7DE9FA` → `#2DD4BF`
+- Diagonal accents: `#38BDF8` → `#22D3EE`
+- Stars: satellite `#A5F3FC`; hub halo / antenna tips / north pointer `#E0FBFF`; hub center + reverse ink `#FFFFFF`
+- Sail arcs: `#5EEAD4` at 0.35–0.5 opacity
+- Bot hull: `#0E1B2E`
 
-## 3. Don'ts
+Tokens ship as `--k8sam-*` CSS variables in `brand/tokens/tokens.css`
+(canonical, board-locked — the 6 CORE gradient anchors change via PR to that
+directory only), with `tokens.json` as the machine-readable twin in the kit.
+The website consumes them through `src/styles/theme.css`; never redefine token
+values inline.
 
-- Do not recolor elements — semantic colors are fixed. No gradients on the mark.
-- Do not rotate, skew, add drop shadows or glows, or outline the mark.
-- Do not place the full-color mark on mid-tone or cluttered surfaces; use mono-light on dark, mono-dark on light, or the navy tile.
-- Do not animate nodes or the ring. **Route-only motion:** any motion travels along routes (dash offsets, signal dots easing along a path, ≤200ms transitions). Nodes, ring, and orbit never pulse or spin.
-- Do not rebuild the wordmark in other fonts; Inter SemiBold only. Do not stretch the lockup; scale proportionally.
-- Do not use the Mesh Lattice as a foreground element or logo component.
+## 4. Usage rules
 
-## 4. Color system
+- **Clear space:** keep at least one compass-arm span (tip of N ray to hub
+  core) free on all sides; nothing enters the tile.
+- **Minimum sizes:** master 48px; favicon floor 16px (verified: cross arms, hub
+  core, and a bot silhouette all read at 16px); OG as delivered at 1200x630.
+- **Surfaces:** the master is for dark surfaces. On light surfaces use the
+  mono-dark variant; the reverse (pure white) is for dark surfaces — never
+  place white ink on light backgrounds.
+- **Motion:** dashes may flow along the mesh links (compass arms stay static);
+  respect `prefers-reduced-motion`. The bots never bounce or blink.
+- **Don'ts:** no gradients other than the locked ones; no recoloring the bots'
+  eyes or rays; no rotation of the compass; no emoji glyphs and no textPath
+  anywhere in brand assets (sharp/librsvg compatibility); do not add a literal
+  boat. Do not rebuild the wordmark in other fonts; do not stretch the lockup.
 
-Dark-mode-first, for an infra audience. WCAG ratios measured against the dark canvas/surface and light canvas:
-
-| Foreground | On navy `#0A1628` | On surface `#111521` | On light `#F6F8FC` |
-|---|---|---|---|
-| Ink `#E8ECF5` (text) | 15.3:1 | 15.4:1 | — |
-| Neutral-6 `#C4CCDE` (body) | 11.3:1 | 11.3:1 | — |
-| Neutral-5 `#8B96AD` (secondary) | 6.1:1 | 6.1:1 | — |
-| K8s-blue `#326CE5` (routes/graphics, large text) | 3.8:1 | 3.8:1 | 4.5:1* |
-| Route-blue `#5B9CF8` (links/text dark) | 6.5:1 | 6.6:1 | use `#2B6BC4` |
-| Route-teal `#2DD4BF` (edges) | 9.7:1 | 9.8:1 | use `#0F766E` as text |
-| A2A-green `#22C55E` (signal/success) | 8.0:1 | 8.0:1 | use `#15803D` as text |
-| Amber `#FBBF24` (warning) | 10.9:1 | 10.9:1 | use `#A16207` |
-| Danger `#F87171` | 6.6:1 | 6.6:1 | use `#B91C1C` |
-
-`#326CE5` meets AA for large text (≥3:1) and graphics on dark, and AA for normal text on the light canvas; body-size text on dark uses the `*-strong` variants (all ≥6:1, well past AA).
-
-Tokens ship in `brand/tokens/tokens.css` (canonical): brand palette, semantic states (text + tinted backgrounds), text-safe light-theme variants, dark-mode-first neutrals, spacing, radii, typography, and motion. The website consumes them through `src/styles/theme.css`.
-
-## 5. Typography
+## 5. Typography and site design system
 
 | Role | Family | Weights | License |
 |---|---|---|---|
@@ -69,44 +79,39 @@ Tokens ship in `brand/tokens/tokens.css` (canonical): brand palette, semantic st
 - Headings: Inter SemiBold 600. Hero display: Inter Light 300, large sizes only.
 - Body: Inter Regular, 16–18px, ~1.6 line height.
 - Code, kubectl snippets, and diagram labels: JetBrains Mono.
-- Self-host the variable files (`@fontsource-variable/inter`, `@fontsource-variable/jetbrains-mono`); CSS stacks in `tokens.css` fall back to system fonts first-paint.
+- Self-host the variable files (`@fontsource-variable/inter`,
+  `@fontsource-variable/jetbrains-mono`); CSS stacks in `tokens.css` fall back
+  to system fonts first-paint.
+- Architecture diagrams follow the brand-aligned Mermaid theme wired in
+  `astro.config.mjs` (self-contained dark-navy node surfaces, teal/sky strokes);
+  reference render: `brand/diagrams/diagram-style-sample.svg` / `.png`.
+- Motion tokens (`--mesh-motion-*`): 120–200ms, `cubic-bezier(0.4, 0, 0.2, 1)`.
 
-## 6. Iconography and diagram style
+## 6. Rendering and re-sync
 
-Governed by Gateway Geometry (direction C), Mesh Lattice as background texture only:
+PNG exports render via **sharp/libvips** (cairosvg is broken on this machine
+and must not be used). The kit's verification pipeline lives with the canonical
+sources (`tools/build-kit.js`, 26/26 probes); re-run it there after any kit
+change, then re-sync `brand/logos/` here — copy the kit exports byte-for-byte
+where the size exists, render the rest with sharp (see
+`scripts/generate-banner.mjs` for the engine), and regenerate
+`brand/banner.png` + `public/banner.png`.
 
-- **Agent node:** teal circle outline, 2.5px stroke, inner solid dot (36% of radius).
-- **Gateway:** double-ring rounded rectangle — outer 2.5px k8s-blue stroke, inner 1.5px at 55% opacity; the gateway ring of the primary mark is the same motif.
-- **Memory:** outlined cylinder (teal, 2.5px).
-- **Routes:** k8s-blue 3px, round caps, arrowheads for request direction. **Edges:** teal 3px for stateful/ambient links.
-- **A2A signals:** solid green dots on routes (r=5 in diagrams).
-- **Background:** hairline 60px Mesh Lattice grid at ≤45% opacity on navy.
-- **Labels:** JetBrains Mono SemiBold, teal for agents, route-blue for gateways.
-
-Reference render: `brand/diagrams/diagram-style-sample.svg` / `.png`. A one-page overview of the whole kit: `brand/preview/brand-sheet.png`.
-
-## 7. Motion
-
-Route-only. Signals and dashes animate along routes; durations 120–200ms, easing `cubic-bezier(0.4, 0, 0.2, 1)` (tokens `--mesh-motion-*`). Nodes, rings, orbit, and the mark itself are static. Respect `prefers-reduced-motion`.
-
-## 8. File map
+## 7. File map
 
 ```
 brand/
-  brand-guide.md            this guide
-  README.md                 kit contents
+  brand-guide.md            this guide (synced from the agentMesh kit)
+  README.md                 kit contents + provenance
   tokens/tokens.css         canonical design tokens (CSS variables)
   logos/                    SVG sources + PNG exports (mark, lockups, avatar, favicon)
   diagrams/                 diagram-style sample (SVG + PNG)
-  preview/brand-sheet.png   one-page board-review poster
+  preview/brand-sheet.png   one-page kit overview
 ```
 
-## 9. Changelog
+## 8. Changelog
 
-- **v1 (2026-10-16)** — initial kit on the accepted Territory B baseline: B2 Hub Constellation glyph, palette, tokens, diagram style, guide.
-- **v2 (2026-10-17)** — navigator accents (helm spokes, sail cut-outs, compass ticks) per board feedback. Rejected by the board: compass liked, mark read as unclear.
-- **v3 (2026-10-17)** — "Viking north cross" per board rejection reason: hub becomes a four-pointed north cross (compass rose / Northern Cross constellation); compass ticks kept; helm spokes and sails removed for clarity.
-- **v4 (2026-10-17)** — per the board's inspiration image (8-armed viking compass medallion): the hub becomes an eight-point compass rose (4 long cardinal rays + 4 short diagonal rays + core) framed by a thin medallion ring; favicon redrawn bolder and 16px gate re-verified. Fixed a latent fill-rule defect (core-circle subpath winding against the rays punched holes over routes) by emitting core and ring as separate circle elements. Verified: mark structure probes (core, cardinal and diagonal rays, ring, clean background between rays, agents, routes, ticks, signals), AA contrast matrix unchanged.
-
-[ISI-6042]: /ISI/issues/ISI-6042
-[ISI-6046]: /ISI/issues/ISI-6046
+- **2026-10-23** — synced to the board-locked Viking North-Cross Constellation
+  Compass kit (acceptance card `ba1755b0`): logo suite, palette and usage
+  rules now describe the selected logo; the Agent Constellation guide
+  (2026-10-16, card `cc83324a`) is superseded.
