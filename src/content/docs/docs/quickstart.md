@@ -109,7 +109,7 @@ grep -A1 '^dependencies:' deploy/helm/k8sagentmesh/Chart.yaml || echo "no depend
 
 # 2. extraction-clean: no host import anywhere in the module
 #    (the same guard runs in CI as hack/extraction-clean.sh)
-grep -ri 'k8squad/k8squad' --include='*.go' . || echo "extraction-clean"
+grep -rn --include='*.go' -F '"github.com/K8squad/K8squad/' . || echo "extraction-clean"
 
 # 3. only mesh-group CRDs were applied to your cluster
 kubectl api-resources --api-group=mesh.k8sagentmesh.io
