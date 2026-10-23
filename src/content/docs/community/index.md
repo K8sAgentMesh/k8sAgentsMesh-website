@@ -16,8 +16,6 @@ reach us is the repository.
   [github.com/K8sAgentMesh/k8sAgentsMesh-website](https://github.com/K8sAgentMesh/k8sAgentsMesh-website)
 - **Discussions:** use the issue tracker for now — we'll open a discussions
   board as the community grows.
-- **Blog & changelog:** the [blog](/blog/) tells the extraction story and
-  announces releases as they ship.
 
 ## Reporting bugs
 
@@ -35,7 +33,7 @@ repository over a public issue — do not post exploit details publicly.
 - **Hosts, not owners** — adopters keep their own control planes and plug in
   behind the seams. k8squad is host #1, the reference adopter.
 - **Lifted, not rewritten** — code moves from the proven reference seam with
-  behavior fidelity; the [roadmap](/docs/roadmap/) documents every story.
+  behavior fidelity; the extraction history is in the repository's commit log.
 - **Extraction-clean** — no package in the module may import
   `github.com/K8squad/K8squad/*`; the guard runs in CI.
 - **Docs stay in sync** — the website's module-surface claims are verified

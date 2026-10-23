@@ -11,10 +11,9 @@ on Kubernetes.
 
 | Section | Where | What |
 | --- | --- | --- |
-| Home | `src/pages/index.astro` | Hero, feature grid, how-it-works, hosts section |
-| Docs | `src/content/docs/docs/` | Overview, roadmap, host-integration guide |
+| Home | `src/pages/index.astro` | Hero with logo, animated concept diagram, feature grid, how-it-works, hosts section |
+| Docs | `src/content/docs/docs/` | Overview, prerequisites, quickstart, host-integration guide |
 | Concepts | `src/content/docs/concepts/` | Architecture, lifecycle, scheduling, telemetry, memory, CRD contracts, hosts |
-| Blog & changelog | `src/content/docs/blog/` | Extraction story posts, date-prefixed (`YYYY-MM-DD-slug.md`) |
 | Community | `src/content/docs/community/` | Community index + contributing guide |
 
 ## Docs stay in sync with the module
@@ -35,7 +34,7 @@ MAIN_REPO_PATH=/path/to/K8sAgentMesh npm run check:docs   # local run
 ```
 brand/            brand identity kit: logos, brand guide, canonical tokens
 src/pages/        standalone landing page at `/`
-src/content/docs/ Starlight content (docs, concepts, blog, community)
+src/content/docs/ Starlight content (docs, concepts, community)
 src/styles/       Starlight theme mapping onto the brand tokens
 scripts/          docs-sync check against the main repo
 .github/          CI: build + docs-sync (PRs), Pages deploy (main), weekly docs-sync

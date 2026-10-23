@@ -1,12 +1,18 @@
 ---
 // K8sAgentMesh landing page (k8sagentmesh.github.io/k8sAgentsMesh-website).
 // Standalone Astro page at `/` outside Starlight, which owns `/docs/**`,
-// `/concepts/**`, `/blog/**` and `/community/**`.
+// `/concepts/**` and `/community/**`.
 // Content-complete build (ISI-6047): hero, feature grid, how-it-works strip
 // (Gateway → Route → Memory), hosts section, GitHub CTA.
+// ISI-6463 + ISI-6509: the hero shows the brand mark and an animated
+// concept diagram (src/components/ConceptDiagram.astro — CSS-only motion,
+// reduced-motion safe); the Blog nav link is gone with the blog itself.
 // Dark-mode-first; tokens come from brand/tokens/tokens.css.
 import logoDark from '../../brand/logos/k8sagentmesh-lockup-horizontal.svg';
 import logoLight from '../../brand/logos/k8sagentmesh-lockup-mono-dark.svg';
+import logoMarkDark from '../../brand/logos/k8sagentmesh-mark.svg';
+import logoMarkLight from '../../brand/logos/k8sagentmesh-mark-mono-dark.svg';
+import ConceptDiagram from '../components/ConceptDiagram.astro';
 
 const BASE = import.meta.env.BASE_URL;
 const GITHUB_URL = 'https://github.com/K8sAgentMesh/K8sAgentMesh';
@@ -179,14 +185,29 @@ const FEATURES = [
         width: auto;
         display: block;
       }
+      /* Hero mark: the brand logo on the main page (ISI-6509). Theme-aware
+       * pair like the header lockup; exactly one variant is rendered at a
+       * time (the other is display:none), and both carry the same alt text
+       * so assistive tech always sees exactly one named logo. Never
+       * recolored or animated (brand guide §3). */
+      .hero-logo {
+        height: 6.5rem;
+        width: auto;
+        display: block;
+        margin: 0 auto var(--mesh-space-5);
+      }
       /* The lockup is theme-aware: full-color on the dark header, monochrome
        * dark on light surfaces (brand guide §1). One is always display:none,
-       * so assistive tech sees exactly one logo. */
+       * so assistive tech sees exactly one logo. The hero mark follows the
+       * same pair pattern. */
       html[data-theme='dark'] .brand .logo-light,
-      html:not([data-theme='light']) .brand .logo-light {
+      html:not([data-theme='light']) .brand .logo-light,
+      html[data-theme='dark'] .hero-logo.logo-light,
+      html:not([data-theme='light']) .hero-logo.logo-light {
         display: none;
       }
-      html[data-theme='light'] .brand .logo-dark {
+      html[data-theme='light'] .brand .logo-dark,
+      html[data-theme='light'] .hero-logo.logo-dark {
         display: none;
       }
       .nav-links {
@@ -302,6 +323,28 @@ const FEATURES = [
       .btn-ghost:hover {
         border-color: var(--mesh-brand-primary);
         text-decoration: none;
+      }
+
+      /* ---- Concept band (diagram + animation, ISI-6509) ---- */
+      .concept {
+        padding: var(--mesh-space-8) 0;
+      }
+      .concept-intro {
+        text-align: center;
+        font-size: 1.05rem;
+        color: var(--mesh-neutral-5);
+        max-width: 52ch;
+        margin: calc(-1 * var(--mesh-space-4)) auto var(--mesh-space-5);
+      }
+      .concept-caption {
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--mesh-neutral-5);
+        max-width: 62ch;
+        margin: 0 auto;
+      }
+      .concept-caption a {
+        white-space: nowrap;
       }
 
       section h2 {
@@ -457,6 +500,8 @@ const FEATURES = [
       }
       html[data-theme='light'] .nav-links a,
       html[data-theme='light'] .lede,
+      html[data-theme='light'] .concept-intro,
+      html[data-theme='light'] .concept-caption,
       html[data-theme='light'] .card p,
       html[data-theme='light'] .step p,
       html[data-theme='light'] .hosts .pane p {
@@ -523,7 +568,6 @@ const FEATURES = [
         <div class="nav-links">
           <a href={`${BASE}docs/`}>Docs</a>
           <a href={`${BASE}concepts/architecture/`}>Concepts</a>
-          <a href={`${BASE}blog/`}>Blog</a>
           <a href={`${BASE}community/`}>Community</a>
           <a href={GITHUB_URL}>GitHub</a>
           <button
@@ -564,6 +608,20 @@ const FEATURES = [
 
     <main id="main-content">
       <section class="hero wrap">
+        <img
+          class="hero-logo logo-dark"
+          src={logoMarkDark.src}
+          alt="K8sAgentMesh logo"
+          width="256"
+          height="256"
+        />
+        <img
+          class="hero-logo logo-light"
+          src={logoMarkLight.src}
+          alt="K8sAgentMesh logo"
+          width="256"
+          height="256"
+        />
         <span class="kicker">Protocol-first agent mesh</span>
         <h1>
           The <span class="accent">mesh layer</span> for agent teams on
@@ -578,6 +636,22 @@ const FEATURES = [
           <a class="btn btn-primary" href={GITHUB_URL}>View on GitHub</a>
           <a class="btn btn-ghost" href={`${BASE}docs/`}>Read the docs</a>
         </div>
+      </section>
+
+      <section class="concept wrap" id="architecture">
+        <h2>A seam, not a silo</h2>
+        <p class="concept-intro">
+          Pod gateways, a router, and a registry — wrapped around one small
+          contract.
+        </p>
+        <ConceptDiagram />
+        <p class="concept-caption">
+          The mesh owns mechanism — gateways, routing, lifecycle, registration
+          seams. Everything else is a host decision.
+          <a href={`${BASE}concepts/architecture/`}>
+            Read the architecture overview →
+          </a>
+        </p>
       </section>
 
       <section class="features wrap">

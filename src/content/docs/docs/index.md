@@ -19,7 +19,7 @@ self-orchestrating agent teams.**
 | `apis/mesh/v1alpha1` | Mesh-owned CRD contracts — `MeshPool` (standing band, saturation, D4.2 lifecycle knobs, registration heartbeat/TTL), `MeshRoute` (selection strategy, recreate SLO, fallback), `MeshTelemetry` (per-event emission, emitter `none\|otel`, metric namespace) — plus deepcopy and CRD YAML in `apis/mesh/v1alpha1/crd/`. Types + YAML only, no controller. |
 
 See [Concepts — Architecture](/concepts/architecture/) for the shape of each
-surface, and the [roadmap](/docs/roadmap/) for where the extraction stands.
+surface.
 
 ## Hosts, not owners
 
@@ -38,8 +38,8 @@ runs in CI (`hack/extraction-clean.sh`).
 
 ## Status
 
-**P3 extraction is complete** — stories P3.1–P3.8 are done (see the
-[roadmap](/docs/roadmap/)), host #1 (k8squad) is cut over to the module, and
+**P3 extraction is complete** — stories P3.1–P3.8 are done, host #1
+(k8squad) is cut over to the module, and
 the mesh-owned CRD contracts (`MeshPool`, `MeshRoute`, `MeshTelemetry`) are
 published in `apis/mesh/v1alpha1`. The code is lifted, not rewritten, from the
 proven seam in k8squad (P1 prototype + P2 second-adapter proof: zero

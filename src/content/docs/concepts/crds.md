@@ -36,6 +36,9 @@ The CRD YAML passes structural-schema validation in CI
 property against the Go types' JSON tags — **extraction-clean applies to CRD
 shapes exactly as to imports**.
 
+For copy-paste configuration examples and field-level reference tables, see
+[CRD reference — MeshPool, MeshRoute, MeshTelemetry](/docs/crd-reference/).
+
 ## Tier B — Go contract types, not CRDs
 
 - The **`MeshEndpoint`** registration record behind the P3.4 `Registry`

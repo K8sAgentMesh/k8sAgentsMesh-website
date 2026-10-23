@@ -111,7 +111,7 @@ try {
     assert(out === '', `forbidden host import found:\n${out}`);
   });
 
-  // Story subjects: the P3 stories the roadmap reports as done
+  // Story subjects: the P3 stories the site reports as done
   if (Array.isArray(facts.commitSubjects) && facts.commitSubjects.length > 0) {
     check(`commit subjects present on ${repoRef}: ${facts.commitSubjects.join(', ')}`, () => {
       const log = execFileSync('git', ['-C', repo, 'log', '--oneline'], {
