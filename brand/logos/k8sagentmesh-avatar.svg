@@ -1,21 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="K8sAgentMesh org avatar">
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="K8sAgentMesh org avatar" viewBox="0 0 512 512" width="512" height="512">
   <title>K8sAgentMesh org avatar</title>
-  <rect width="256" height="256" fill="#0A1628"/>
-  <g transform="translate(128 128) scale(0.78) translate(-128 -148)">
-  <g id="mesh-mark">
-    <circle cx="128" cy="148" r="94.85" fill="none" stroke="#2DD4BF" stroke-opacity="0.35" stroke-width="2.5" stroke-dasharray="0.1 8.5" stroke-linecap="round"/>
-    <line x1="217.85" y1="148.00" x2="227.85" y2="148.00" stroke="#2DD4BF" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
-    <line x1="128.00" y1="58.15" x2="128.00" y2="48.15" stroke="#2DD4BF" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
-    <line x1="38.15" y1="148.00" x2="28.15" y2="148.00" stroke="#2DD4BF" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
-    <line x1="128.00" y1="237.85" x2="128.00" y2="247.85" stroke="#2DD4BF" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
-    <path d="M 73.45 88.33 L 117.88 136.93 M 182.55 88.33 L 138.12 136.93" fill="none" stroke="#326CE5" stroke-width="8" stroke-linecap="round"/>
-    <circle cx="165.1" cy="107.4" r="6" fill="#22C55E" fill-opacity="1.0"/>
-    <circle cx="107.5" cy="125.6" r="4.5" fill="#22C55E" fill-opacity="0.6"/>
-    <circle cx="128" cy="148" r="44" fill="none" stroke="#E8ECF5" stroke-width="2.5"/>
-    <path d="M 128.00 110.00 L 138.12 148.00 L 117.88 148.00 Z M 166.00 148.00 L 128.00 158.12 L 128.00 137.88 Z M 128.00 186.00 L 117.88 148.00 L 138.12 148.00 Z M 90.00 148.00 L 128.00 137.88 L 128.00 158.12 Z M 146.38 166.38 L 123.23 152.77 L 132.77 143.23 Z M 109.62 166.38 L 123.23 143.23 L 132.77 152.77 Z M 109.62 129.62 L 132.77 143.23 L 123.23 152.77 Z M 146.38 129.62 L 132.77 152.77 L 123.23 143.23 Z" fill="#E8ECF5"/>
-    <circle cx="128" cy="148" r="13" fill="#E8ECF5"/>
-    <circle cx="64" cy="78" r="14" fill="#2DD4BF"/>
-    <circle cx="192" cy="78" r="14" fill="#2DD4BF"/>
+  <!-- K8sAgentMesh favicon — simplified from north-cross-master.svg .
+       16px legibility rule: cross + hub core + one bot silhouette must read.
+       All content inside r230 of center (avatar circle/square crop safe).
+       Below 32px the diagonal hints and antenna gracefully vanish. -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#101B30"/>
+      <stop offset="60%" stop-color="#0B1220"/>
+      <stop offset="100%" stop-color="#070D17"/>
+    </radialGradient>
+    <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7DE9FA"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <linearGradient id="ray45" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- long cardinal ray (east); rotations produce S and W -->
+    <path id="crayE" d="M 424 256 L 280 236 L 256 256 L 280 276 Z"/>
+    <!-- short diagonal hint (upper-right); rotations produce the rest -->
+    <path id="drayNE" d="M 330 182 L 269 243 L 256 256 L 243 269 Z" transform="rotate(45 256 256)"/>
+  </defs>
+
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+
+  <g filter="url(#glow)">
+    <!-- north arm (shorter: the leader bot sits at its tip) -->
+    <path d="M 256 146 L 276 236 L 256 256 L 236 236 Z" fill="url(#ray)"/>
+    <use href="#crayE" fill="url(#ray)" opacity="0.92"/>
+    <use href="#crayE" fill="url(#ray)" opacity="0.92" transform="rotate(90 256 256)"/>
+    <use href="#crayE" fill="url(#ray)" opacity="0.92" transform="rotate(180 256 256)"/>
+    <g fill="url(#ray45)" opacity="0.6">
+      <use href="#drayNE"/>
+      <use href="#drayNE" transform="rotate(90 256 256)"/>
+      <use href="#drayNE" transform="rotate(180 256 256)"/>
+      <use href="#drayNE" transform="rotate(270 256 256)"/>
+    </g>
+    <!-- hub core: cyan halo, white-bright center -->
+    <circle cx="256" cy="256" r="44" fill="#7DE9FA"/>
+    <circle cx="256" cy="256" r="24" fill="#E0FBFF"/>
   </g>
+
+  <!-- leader bot: bright solid chip silhouette with knocked-out eyes -->
+  <g filter="url(#glow)">
+    <line x1="256" y1="78" x2="256" y2="52" stroke="#22D3EE" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 256 40 L 267 51 L 256 48 L 245 51 Z" fill="#E0FBFF"/>
+    <rect x="222" y="78" width="68" height="48" rx="14" fill="url(#ray)"/>
+    <circle cx="240" cy="102" r="9" fill="#0B1220"/>
+    <circle cx="272" cy="102" r="9" fill="#0B1220"/>
   </g>
 </svg>

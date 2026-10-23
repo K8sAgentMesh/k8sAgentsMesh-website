@@ -1,24 +1,108 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 618 128" width="618" height="128" role="img" aria-label="K8sAgentMesh horizontal lockup (color, for dark surfaces)">
   <title>K8sAgentMesh horizontal lockup (color, for dark surfaces)</title>
-  <g transform="translate(-25.0 0) scale(0.5)">
-  <g id="mesh-mark">
-    <circle cx="128" cy="148" r="94.85" fill="none" stroke="#2DD4BF" stroke-opacity="0.35" stroke-width="2.5" stroke-dasharray="0.1 8.5" stroke-linecap="round"/>
-    <line x1="217.85" y1="148.00" x2="227.85" y2="148.00" stroke="#2DD4BF" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
-    <line x1="128.00" y1="58.15" x2="128.00" y2="48.15" stroke="#2DD4BF" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
-    <line x1="38.15" y1="148.00" x2="28.15" y2="148.00" stroke="#2DD4BF" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
-    <line x1="128.00" y1="237.85" x2="128.00" y2="247.85" stroke="#2DD4BF" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round"/>
-    <path d="M 73.45 88.33 L 117.88 136.93 M 182.55 88.33 L 138.12 136.93" fill="none" stroke="#326CE5" stroke-width="8" stroke-linecap="round"/>
-    <circle cx="165.1" cy="107.4" r="6" fill="#22C55E" fill-opacity="1.0"/>
-    <circle cx="107.5" cy="125.6" r="4.5" fill="#22C55E" fill-opacity="0.6"/>
-    <circle cx="128" cy="148" r="44" fill="none" stroke="#E8ECF5" stroke-width="2.5"/>
-    <path d="M 128.00 110.00 L 138.12 148.00 L 117.88 148.00 Z M 166.00 148.00 L 128.00 158.12 L 128.00 137.88 Z M 128.00 186.00 L 117.88 148.00 L 138.12 148.00 Z M 90.00 148.00 L 128.00 137.88 L 128.00 158.12 Z M 146.38 166.38 L 123.23 152.77 L 132.77 143.23 Z M 109.62 166.38 L 123.23 143.23 L 132.77 152.77 Z M 109.62 129.62 L 132.77 143.23 L 123.23 152.77 Z M 146.38 129.62 L 132.77 152.77 L 123.23 143.23 Z" fill="#E8ECF5"/>
-    <circle cx="128" cy="148" r="13" fill="#E8ECF5"/>
-    <circle cx="64" cy="78" r="14" fill="#2DD4BF"/>
-    <circle cx="192" cy="78" r="14" fill="#2DD4BF"/>
+  <g transform="translate(-23.99 -3.40) scale(0.29)"><!-- K8sAgentMesh master mark — Viking North-Cross Constellation Compass
+       Refined from the locked base north-cross-v2-bots.svg .
+       Optical fixes vs v2: diagonal compass points rebuilt as clean symmetric
+       tapers (the SE point in v2 was collinear and invisible, the other three
+       were twisted ~2px slivers); bot optics tuned for mid-size legibility. -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#101B30"/>
+      <stop offset="60%" stop-color="#0B1220"/>
+      <stop offset="100%" stop-color="#070D17"/>
+    </radialGradient>
+    <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7DE9FA"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <linearGradient id="ray45" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowSm" x="-120%" y="-120%" width="340%" height="340%">
+      <feGaussianBlur stdDeviation="2.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- agent bot: chip-head, two eyes, side mesh pins, antenna tipped with a star -->
+    <g id="bot">
+      <line x1="0" y1="-11" x2="0" y2="-20" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"/>
+      <path d="M 0 -27.5 L 2.7 -21.4 L 0 -22.6 L -2.7 -21.4 Z" fill="#E0FBFF"/>
+      <rect x="-13" y="-11" width="26" height="23" rx="7.5" fill="#0E1B2E" stroke="url(#ray)" stroke-width="2.4"/>
+      <circle cx="-4.8" cy="0" r="3.1" fill="#A5F3FC"/>
+      <circle cx="4.8" cy="0" r="3.1" fill="#A5F3FC"/>
+      <line x1="-13" y1="4" x2="-17.5" y2="4" stroke="#2DD4BF" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="13" y1="4" x2="17.5" y2="4" stroke="#2DD4BF" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+
+    <!-- one diagonal compass point (upper-right); 90-degree rotations around the
+         hub center produce the other three, guaranteeing symmetry -->
+    <path id="dray" d="M 362 150 L 266.6 252.5 L 256 256 L 259.5 245.4 Z"/>
+  </defs>
+
+  <!-- constellation mesh: the cross rays ARE the mesh edges, plugging into bots -->
+  <g stroke-width="2" opacity="0.85" stroke-linecap="round">
+    <line x1="256" y1="128" x2="256" y2="384" stroke="url(#ray)" opacity="0.9"/>
+    <line x1="128" y1="256" x2="384" y2="256" stroke="url(#ray)" opacity="0.9"/>
+    <line x1="168" y1="168" x2="344" y2="344" stroke="url(#ray45)" opacity="0.45" stroke-dasharray="1 7"/>
+    <line x1="344" y1="168" x2="168" y2="344" stroke="url(#ray45)" opacity="0.45" stroke-dasharray="1 7"/>
+    <path d="M 128 256 Q 256 120 384 256" fill="none" stroke="#22D3EE" opacity="0.35" stroke-dasharray="1 6"/>
+    <path d="M 128 256 Q 256 392 384 256" fill="none" stroke="#22D3EE" opacity="0.35" stroke-dasharray="1 6"/>
+    <!-- taut sail arcs on the mast: abstract sailing nod -->
+    <path d="M 262 148 Q 352 220 262 300" fill="none" stroke="#5EEAD4" opacity="0.5" stroke-width="2.5"/>
+    <path d="M 250 168 Q 188 224 250 292" fill="none" stroke="#5EEAD4" opacity="0.35" stroke-width="2"/>
+    <!-- agent-to-agent side links from bots to scattered stars -->
+    <line x1="128" y1="256" x2="112" y2="180" stroke="#22D3EE" opacity="0.3" stroke-dasharray="1 5"/>
+    <line x1="384" y1="256" x2="400" y2="196" stroke="#22D3EE" opacity="0.3" stroke-dasharray="1 5"/>
+    <line x1="256" y1="384" x2="150" y2="380" stroke="#22D3EE" opacity="0.3" stroke-dasharray="1 5"/>
+    <line x1="384" y1="256" x2="396" y2="352" stroke="#22D3EE" opacity="0.3" stroke-dasharray="1 5"/>
   </g>
+
+  <!-- north-star compass cross: long cardinal points, shorter diagonal points -->
+  <g filter="url(#glow)">
+    <path d="M 256 96 L 268 244 L 256 256 L 244 244 Z" fill="url(#ray)"/>
+    <path d="M 256 416 L 268 268 L 256 256 L 244 268 Z" fill="url(#ray)" opacity="0.9"/>
+    <path d="M 96 256 L 244 268 L 256 256 L 244 244 Z" fill="url(#ray)" opacity="0.9"/>
+    <path d="M 416 256 L 268 268 L 256 256 L 268 244 Z" fill="url(#ray)" opacity="0.9"/>
+    <g fill="url(#ray45)" opacity="0.75">
+      <use href="#dray"/>
+      <use href="#dray" transform="rotate(90 256 256)"/>
+      <use href="#dray" transform="rotate(180 256 256)"/>
+      <use href="#dray" transform="rotate(270 256 256)"/>
+    </g>
+    <!-- hub core: double circle, cyan halo + white center -->
+    <circle cx="256" cy="256" r="14" fill="#E0FBFF"/>
+    <circle cx="256" cy="256" r="7" fill="#FFFFFF"/>
   </g>
-  <g id="mesh-wordmark" fill="#E8ECF5">
-    <path transform="translate(133.00 97.28) scale(0.031250 -0.031250)" d="M150 0V1490H417V1048L413 729Q465 809 523.0 884.0Q581 959 654 1044L1045 1490H1377L805 845L1387 0H1072L620 668L417 447V0Z"/>
+
+  <!-- AGENT BOTS at the four arm ends; north bot ~18% larger (leader/hub) -->
+  <g filter="url(#glowSm)">
+    <use href="#bot" transform="translate(256,118) scale(1.18)"/>
+    <use href="#bot" x="256" y="384"/>
+    <use href="#bot" x="384" y="256"/>
+    <use href="#bot" x="128" y="256"/>
+  </g>
+
+  <!-- secondary agents: small stars on the diagonals and scattered -->
+  <g fill="#A5F3FC" filter="url(#glowSm)">
+    <circle cx="168" cy="168" r="5"/>
+    <circle cx="344" cy="168" r="5"/>
+    <circle cx="168" cy="344" r="5"/>
+    <circle cx="344" cy="344" r="5"/>
+    <circle cx="112" cy="180" r="3.5" opacity="0.7"/>
+    <circle cx="400" cy="196" r="3.5" opacity="0.7"/>
+    <circle cx="150" cy="380" r="3.5" opacity="0.7"/>
+    <circle cx="396" cy="352" r="3.5" opacity="0.7"/>
+  </g>
+
+  <!-- north pointer accent above the north bot -->
+  <path d="M 256 60 L 263 74 L 256 71 L 249 74 Z" fill="#E0FBFF" opacity="0.9" filter="url(#glowSm)"/>
+  </g>
+  <g id="mesh-wordmark" fill="#E8ECF5"><path transform="translate(133.00 97.28) scale(0.031250 -0.031250)" d="M150 0V1490H417V1048L413 729Q465 809 523.0 884.0Q581 959 654 1044L1045 1490H1377L805 845L1387 0H1072L620 668L417 447V0Z"/>
     <path transform="translate(178.00 97.28) scale(0.031250 -0.031250)" d="M655 -20Q493 -20 368.5 34.0Q244 88 173.5 183.0Q103 278 103 399Q103 492 144.0 571.0Q185 650 255.5 703.0Q326 756 414 771V780Q299 806 228.0 898.0Q157 990 157 1111Q157 1226 221.5 1316.0Q286 1406 398.5 1458.0Q511 1510 655 1510Q798 1510 910.5 1458.0Q1023 1406 1088.0 1316.0Q1153 1226 1153 1111Q1153 990 1081.5 898.0Q1010 806 897 780V771Q983 756 1053.5 703.0Q1124 650 1166.0 571.0Q1208 492 1208 399Q1208 278 1137.0 183.0Q1066 88 941.0 34.0Q816 -20 655 -20ZM655 186Q781 186 856.5 250.0Q932 314 932 418Q932 525 853.0 594.0Q774 663 655 663Q534 663 455.5 594.0Q377 525 377 418Q377 314 452.5 250.0Q528 186 655 186ZM655 865Q758 865 825.0 926.0Q892 987 892 1085Q892 1182 826.0 1241.0Q760 1300 655 1300Q549 1300 483.5 1241.0Q418 1182 418 1085Q418 988 484.5 926.5Q551 865 655 865Z"/>
     <path transform="translate(218.97 97.28) scale(0.031250 -0.031250)" d="M561 -23Q368 -23 242.5 59.5Q117 142 88 294L331 340Q375 176 566 176Q662 176 718.5 214.5Q775 253 775 310Q775 405 624 438L433 479Q119 547 119 792Q119 896 176.0 972.0Q233 1048 334.5 1090.0Q436 1132 570 1132Q760 1132 870.5 1053.0Q981 974 1015 844L783 798Q763 856 713.0 897.0Q663 938 573 938Q491 938 435.0 901.5Q379 865 379 808Q379 759 415.5 727.5Q452 696 538 677L728 637Q1041 570 1041 335Q1041 229 980.0 148.5Q919 68 810.5 22.5Q702 -23 561 -23Z"/>
     <path transform="translate(254.12 97.28) scale(0.031250 -0.031250)" d="M50 0 570 1490H909L1441 0H1148L1021 369H464L342 0ZM535 584H948L883 774Q850 877 814.5 1002.0Q779 1127 737 1282Q697 1126 663.0 999.5Q629 873 598 774Z"/>
@@ -29,6 +113,5 @@
     <path transform="translate(440.31 97.28) scale(0.031250 -0.031250)" d="M150 0V1490H552L835 721Q850 677 869.5 606.5Q889 536 909.0 455.5Q929 375 946 301Q963 374 983.0 454.5Q1003 535 1022.5 605.5Q1042 676 1056 721L1336 1490H1739V0H1473V752Q1473 808 1474.5 890.5Q1476 973 1478.5 1066.0Q1481 1159 1482 1248Q1457 1152 1429.0 1057.0Q1401 962 1376.0 882.0Q1351 802 1333 752L1058 0H831L552 752Q534 800 509.5 878.0Q485 956 457.5 1050.0Q430 1144 402 1240Q404 1156 406.5 1064.5Q409 973 410.5 891.0Q412 809 412 752V0Z"/>
     <path transform="translate(499.34 97.28) scale(0.031250 -0.031250)" d="M632 -23Q463 -23 341.5 48.0Q220 119 154.5 248.0Q89 377 89 552Q89 724 153.5 854.5Q218 985 336.5 1058.5Q455 1132 615 1132Q751 1132 867.5 1072.5Q984 1013 1055.0 888.5Q1126 764 1126 568V486H348Q353 337 431.5 259.0Q510 181 635 181Q721 181 782.5 218.0Q844 255 870 326L1109 277Q1069 142 943.5 59.5Q818 -23 632 -23ZM349 663H873Q861 783 796.5 855.5Q732 928 616 928Q497 928 427.5 851.5Q358 775 349 663Z"/>
     <path transform="translate(537.19 97.28) scale(0.031250 -0.031250)" d="M561 -23Q368 -23 242.5 59.5Q117 142 88 294L331 340Q375 176 566 176Q662 176 718.5 214.5Q775 253 775 310Q775 405 624 438L433 479Q119 547 119 792Q119 896 176.0 972.0Q233 1048 334.5 1090.0Q436 1132 570 1132Q760 1132 870.5 1053.0Q981 974 1015 844L783 798Q763 856 713.0 897.0Q663 938 573 938Q491 938 435.0 901.5Q379 865 379 808Q379 759 415.5 727.5Q452 696 538 677L728 637Q1041 570 1041 335Q1041 229 980.0 148.5Q919 68 810.5 22.5Q702 -23 561 -23Z"/>
-    <path transform="translate(572.34 97.28) scale(0.031250 -0.031250)" d="M398 655V0H138V1490H394V911Q496 1132 733 1132Q906 1132 1011.0 1022.0Q1116 912 1116 711V0H855V671Q855 783 797.0 847.0Q739 911 637 911Q533 911 465.5 844.0Q398 777 398 655Z"/>
-  </g>
+    <path transform="translate(572.34 97.28) scale(0.031250 -0.031250)" d="M398 655V0H138V1490H394V911Q496 1132 733 1132Q906 1132 1011.0 1022.0Q1116 912 1116 711V0H855V671Q855 783 797.0 847.0Q739 911 637 911Q533 911 465.5 844.0Q398 777 398 655Z"/></g>
 </svg>
