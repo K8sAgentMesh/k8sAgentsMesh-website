@@ -1,9 +1,58 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="K8sAgentMesh favicon - viking compass and two agents">
-  <title>K8sAgentMesh favicon - viking compass and two agents</title>
-  <rect width="64" height="64" rx="14" fill="#0A1628"/>
-  <path d="M 13 14 L 26.8 30.0 M 51 14 L 37.2 30.0" fill="none" stroke="#326CE5" stroke-width="5" stroke-linecap="round"/>
-  <path d="M 32.00 22.00 L 38.00 36.00 L 26.00 36.00 Z M 46.00 36.00 L 32.00 42.00 L 32.00 30.00 Z M 32.00 50.00 L 26.00 36.00 L 38.00 36.00 Z M 18.00 36.00 L 32.00 30.00 L 32.00 42.00 Z M 38.36 42.36 L 29.35 38.65 L 34.65 33.35 Z M 25.64 42.36 L 29.35 33.35 L 34.65 38.65 Z M 25.64 29.64 L 34.65 33.35 L 29.35 38.65 Z M 38.36 29.64 L 34.65 38.65 L 29.35 33.35 Z" fill="#E8ECF5"/>
-  <circle cx="32" cy="36" r="5" fill="#E8ECF5"/>
-  <circle cx="13" cy="14" r="5.5" fill="#2DD4BF"/>
-  <circle cx="51" cy="14" r="5.5" fill="#2DD4BF"/>
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="K8sAgentMesh favicon" viewBox="0 0 512 512" width="512" height="512">
+  <title>K8sAgentMesh favicon</title>
+  <!-- K8sAgentMesh favicon — simplified from north-cross-master.svg .
+       16px legibility rule: cross + hub core + one bot silhouette must read.
+       All content inside r230 of center (avatar circle/square crop safe).
+       Below 32px the diagonal hints and antenna gracefully vanish. -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#101B30"/>
+      <stop offset="60%" stop-color="#0B1220"/>
+      <stop offset="100%" stop-color="#070D17"/>
+    </radialGradient>
+    <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7DE9FA"/>
+      <stop offset="100%" stop-color="#2DD4BF"/>
+    </linearGradient>
+    <linearGradient id="ray45" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#22D3EE"/>
+    </linearGradient>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- long cardinal ray (east); rotations produce S and W -->
+    <path id="crayE" d="M 424 256 L 280 236 L 256 256 L 280 276 Z"/>
+    <!-- short diagonal hint (upper-right); rotations produce the rest -->
+    <path id="drayNE" d="M 330 182 L 269 243 L 256 256 L 243 269 Z" transform="rotate(45 256 256)"/>
+  </defs>
+
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+
+  <g filter="url(#glow)">
+    <!-- north arm (shorter: the leader bot sits at its tip) -->
+    <path d="M 256 146 L 276 236 L 256 256 L 236 236 Z" fill="url(#ray)"/>
+    <use href="#crayE" fill="url(#ray)" opacity="0.92"/>
+    <use href="#crayE" fill="url(#ray)" opacity="0.92" transform="rotate(90 256 256)"/>
+    <use href="#crayE" fill="url(#ray)" opacity="0.92" transform="rotate(180 256 256)"/>
+    <g fill="url(#ray45)" opacity="0.6">
+      <use href="#drayNE"/>
+      <use href="#drayNE" transform="rotate(90 256 256)"/>
+      <use href="#drayNE" transform="rotate(180 256 256)"/>
+      <use href="#drayNE" transform="rotate(270 256 256)"/>
+    </g>
+    <!-- hub core: cyan halo, white-bright center -->
+    <circle cx="256" cy="256" r="44" fill="#7DE9FA"/>
+    <circle cx="256" cy="256" r="24" fill="#E0FBFF"/>
+  </g>
+
+  <!-- leader bot: bright solid chip silhouette with knocked-out eyes -->
+  <g filter="url(#glow)">
+    <line x1="256" y1="78" x2="256" y2="52" stroke="#22D3EE" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 256 40 L 267 51 L 256 48 L 245 51 Z" fill="#E0FBFF"/>
+    <rect x="222" y="78" width="68" height="48" rx="14" fill="url(#ray)"/>
+    <circle cx="240" cy="102" r="9" fill="#0B1220"/>
+    <circle cx="272" cy="102" r="9" fill="#0B1220"/>
+  </g>
 </svg>

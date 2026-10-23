@@ -1,7 +1,18 @@
 # K8sAgentMesh brand assets
 
-Brand identity kit (ISI-6046), direction B — Agent Constellation, board-accepted
-on ISI-6042. Full usage rules: [`brand-guide.md`](./brand-guide.md).
+Brand identity kit — **Viking North-Cross Constellation Compass**, direction
+board-locked 2026-10-17 (acceptance card `ba1755b0`). Full usage rules:
+[`brand-guide.md`](./brand-guide.md).
+
+The logo suite in `logos/` is synced from the locked kit sources
+(`branding/logo/` in the agentMesh repo — `north-cross-master.svg`,
+`north-cross-mono-dark.svg`, `north-cross-reverse.svg`,
+`north-cross-favicon.svg`); the same artwork is rolled out as display assets
+in the K8sAgentMesh repo `brand/` (`logo.png`, `avatar.png`, `favicon.png`,
+`banner.png`). When the kit changes, re-sync `logos/` and regenerate the PNG
+exports (the master/mono/reverse/favicon sizes that already exist in the kit's
+`exports/` can be copied byte-for-byte; the rest render with
+`sharp` — see `scripts/generate-banner.mjs` for the engine).
 
 ```
 brand/
