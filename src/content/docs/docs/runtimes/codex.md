@@ -73,9 +73,9 @@ base_url = "http://ollama.ollama.svc:11434/v1"
 wire_api = "chat"
 ```
 
-Credentials ride as **env-var names** inside the rendered document — the CLI
-resolves them from its process environment; secret material never lands in
-the file.
+Credentials ride the process environment only — the IR carries env-var
+**names** (`envNames`), never values, and the rendered document carries no
+credential material or references; secret material never lands in the file.
 
 ## Event mapping
 

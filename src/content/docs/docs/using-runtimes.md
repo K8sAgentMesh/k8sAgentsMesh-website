@@ -114,8 +114,9 @@ runtime page for its env mapping.
 MCP servers are projected as an intermediate representation — name, transport
 (`stdio` or `streamable-http`), args/URL, allow/deny tool sets, and credential
 **names**, never material. Each adapter renders the IR into its native config
-at start: codex gets a rendered `config.toml` (`[mcp_servers.*]`), stamped with
-env-var references the CLI resolves from its process environment. The full
+at start: codex gets a rendered `config.toml` (`[mcp_servers.*]`) with no
+credential material in it — credentials ride the process environment
+(env-var names carried in the IR's `envNames`). The full
 renderer suite for the other runtimes stays host-side until it is upstreamed.
 
 ## Worked example
