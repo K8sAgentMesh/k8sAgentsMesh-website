@@ -88,7 +88,10 @@ advertised, never discovered as a mid-run failure.
 ## Deploy it
 
 The chart projects the credential (goose maps onto the OpenAI key lane); the
-pinned binary must be present on the image the supervisor runs:
+pinned binary must be present on the image the supervisor runs. One wiring
+note: the chart's `agentruntime.modelRoute` block stamps the **vibe** lane
+(`MISTRAL_BASE_URL` / `VIBE_ACTIVE_MODEL`) — goose's BYO lane rides the
+top-level `extraEnv` instead:
 
 ```yaml
 agentruntime:
@@ -96,8 +99,13 @@ agentruntime:
   credentials:
     existingSecret: mesh-goose-credentials
     openaiApiKeyKey: openai-api-key
-  # goose's reference lane is a BYO endpoint
-  modelRoute:
-    endpoint: http://ollama.ollama.svc:11434/v1
-    model: qwen3.5:35b
+
+# goose's BYO openai lane (applies to both Deployments)
+extraEnv:
+  - name: GOOSE_PROVIDER
+    value: openai
+  - name: OPENAI_BASE_URL
+    value: http://ollama.ollama.svc:11434/v1
+  - name: GOOSE_MODEL
+    value: qwen3.5:35b
 ```
