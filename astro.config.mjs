@@ -182,7 +182,12 @@ export default defineConfig({
         },
         {
           label: 'Using runtimes',
-          items: [{ label: 'Using runtimes', link: '/docs/using-runtimes' }],
+          items: [
+            { label: 'Using runtimes', link: '/docs/using-runtimes' },
+            { label: 'vibe runtime', link: '/docs/runtimes/vibe' },
+            { label: 'codex runtime', link: '/docs/runtimes/codex' },
+            { label: 'goose runtime', link: '/docs/runtimes/goose' },
+          ],
         },
         {
           label: 'CRD reference',

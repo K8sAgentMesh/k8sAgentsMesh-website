@@ -53,7 +53,7 @@ spec:
     role: coder           # the role the pool's processes stand for
   envelope:
     runtimeType: codex    # the RuntimeAdapter flavor to spawn
-    model: gpt-5-codex    # resolved model id; empty uses the runtime default
+    model: gpt-5.4-codex  # resolved model id; empty uses the runtime default
     skills:               # announced on the agent card
       - review
       - tests
@@ -112,6 +112,19 @@ kubectl get mpools -n mesh
 | `spec.registration.heartbeatInterval` | duration | `30s` | Registration ticker; each tick re-POSTs the endpoint set. |
 | `spec.registration.endpointTtl` | duration | `90s` | Routability TTL — an endpoint whose last beat is older is unroutable. |
 
+### MeshPool status
+
+The status is a bounded read-back — a count, never a per-process list. A host
+controller (or your own) writes it; `kubectl get` printer columns surface it.
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `status.standing` | int | Live standing process count. |
+| `status.standingKnown` | bool | `false` when the live-count read failed this pass — the floor is still reconciled, the count is simply not fresh. |
+| `status.target` | int | The resolved target-N this pass reconciled toward. |
+| `status.pod` | string | The gateway pod the pool currently runs in (drain/recreate moves it; empty when not yet provisioned). |
+| `status.observedGeneration` | int | The declarative source's generation stamped on the read-back (bookkeeping). |
+
 ## Example: routing policy
 
 A `MeshRoute` declares how the route leg picks a standing process and what it
@@ -151,6 +164,33 @@ kubectl get mroutes -n mesh
 | `spec.lruTiebreak` | bool | `true` | Orders equal-preference candidates least-recently-seen first (spreads wear, keeps caches warm). |
 | `spec.recreateSlo` | duration | `3s` | Status-facing target the route leg observes: arrival → process-ready on the overflow/recreate path. |
 | `spec.fallback` | string | `legacy` | No-route behavior: `legacy` (fall back to the host's pre-mesh dispatch leg) or `fail` (surface the error). |
+
+### MeshRoute status
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `status.routedTotal` | int | Count of mesh-leg routed dispatches. |
+| `status.fallbackTotal` | int | Count of dispatches that took the fallback. |
+| `status.p95ReadyMs` | int | p95 arrival → process-ready latency, in milliseconds. |
+
+### `fallback` semantics
+
+`fallback` fires when the mesh leg **cannot route at all** — no live
+registered endpoint, or a flagged registry error:
+
+- **`legacy`** (the empty-value default): fall back to the host's pre-mesh
+  dispatch leg. Host #1 (k8squad) keeps its legacy spawn-sandbox leg as a
+  **permanent safety valve**, so "flag on, mesh broken" never becomes "flag
+  on, runs dead". This is the reversibility guarantee for the mesh rollout.
+- **`fail`**: no fallback — surface the error. Hosts without a legacy leg
+  (host #2 onward) use this.
+
+The split is a board-recorded decision, not an accident: the field exists so
+the first adopter can roll the mesh leg out incrementally while a second
+adopter never carries a leg it never had. Saturation is a different condition
+with its own knob — a busy-everywhere pool follows
+[`spec.saturation.overflowPolicy`](#meshpool-field-reference) on `MeshPool`,
+not the route fallback.
 
 ## Example: lifecycle telemetry
 
@@ -196,6 +236,24 @@ kubectl get mtelemetry -n mesh
 | `spec.events` | string[] | all on | Per-event on/off subset of `route`, `spawn`, `wake` (max 3). Listing a subset turns the unlisted hooks off. |
 | `spec.otel.spans` | bool | `true` | Turns the `mesh.route` / `mesh.spawn` / `mesh.wake` spans on/off. Consumed only when `emitter: otel`. |
 | `spec.otel.metrics` | bool | `true` | Turns the `namespace.*` metric set on/off. Consumed only when `emitter: otel`. |
+
+### MeshTelemetry status
+
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| `status.emittedTotal` | int | Count of emitted events across the enabled hook set. |
+| `status.lastEmitAt` | string | RFC 3339 timestamp of the most recent emit. |
+
+### `emitter`: `none` or `otel`
+
+The CRD ships exactly two emitters. `none` wires no observer — lifecycle
+events are dropped, the cheapest posture. `otel` routes events to the host's
+OpenTelemetry spine implementation (the reference host runs `meshobs`:
+`mesh.route` / `mesh.spawn` / `mesh.wake` spans plus the `*.mesh.*` metric
+set). A `nats` emitter is **reserved** — rejected by the schema until the
+deferred JetStream implementation ships, at which point it joins the enum
+with no other shape change. The event vocabulary behind the toggles is the
+[lifecycle-event contract](/docs/reference/#lifecycle-events).
 
 ## Working with the resources
 
